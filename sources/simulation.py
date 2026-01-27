@@ -24,7 +24,7 @@ def simulation():
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
-		if (pressed[pygame.K_UP] or pressed[pygame.K_w]):
+		if (pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]):
 			if (robot.px <= length and robot.px >= 0 and robot.py < width and robot.py >= 0):
 				robot.avancer()
 			print(f"px :{robot.px} py :{robot.py}")
@@ -33,7 +33,7 @@ def simulation():
 
 		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
 			robot.reculer()
-		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a]):
+		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			robot.tourner_gauche()
 
 
@@ -41,7 +41,7 @@ def simulation():
 		img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) + 90)
 		# print(math.degrees(robot.angle))
 		rect=img_car_rotation.get_rect(center=((robot.px + img_car_length / 2),(robot.py + img_car_height / 2)))
-		screen.blit(img_car_rotation,rect)
+		screen.blit(img_car_rotation, rect)
 		pygame.display.flip()
 		clock.tick(60)
 	pygame.quit()
