@@ -18,4 +18,14 @@ class Robot:
 			self.angle -= 2 * math.pi
 		self.dx = math.cos(self.angle) * 5
 		self.dy = math.sin(self.angle) * 5
-		
+	
+	def reculer(self):
+		self.px -= self.dx
+		self.py -= self.dy
+	
+	def tourner_gauche(self):
+		self.angle -= math.pi / 48
+		if (self.angle < 0):
+			self.angle += 2 * math.pi
+		self.dx = math.cos(self.angle) * 5
+		self.dy = math.sin(self.angle) * 5
