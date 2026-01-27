@@ -13,9 +13,8 @@ class Robot:
 		self.py += self.dy
 	
 	def tourner_droite(self):
-		self.angle += math.pi / 48
-		if (self.angle > 2 * math.pi):
-			self.angle -= 2 * math.pi
+		self.angle += (math.pi / 48) 
+		self.angle = self.angle % (2 * math.pi)
 		self.dx = math.cos(self.angle) * 5
 		self.dy = math.sin(self.angle) * 5
 	
@@ -24,8 +23,7 @@ class Robot:
 		self.py -= self.dy
 	
 	def tourner_gauche(self):
-		self.angle -= math.pi / 48
-		if (self.angle < 0):
-			self.angle += 2 * math.pi
+		self.angle -= (math.pi / 48) 
+		self.angle = self.angle % (2 * math.pi)
 		self.dx = math.cos(self.angle) * 5
 		self.dy = math.sin(self.angle) * 5

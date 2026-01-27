@@ -7,9 +7,9 @@ width = 800
 
 screen = pygame.display.set_mode((length, width))
 
-img_car_original = pygame.image.load("../images/voiture.png").convert_alpha()
-img__car_length, img__car_width = img_car_original.get_size()
-print(f"length {img__car_length} width : {img__car_width}")
+img_car_original = pygame.image.load("../images/robot_style.png").convert_alpha()
+img_car_length, img_car_width = img_car_original.get_size()
+print(f"length {img_car_length} width : {img_car_width}")
 
 quit = 0
 
@@ -28,16 +28,18 @@ while not(quit):
 		print(f"px :{robot.px} py :{robot.py}")
 	if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 		robot.tourner_droite()
+
 	if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
 		robot.reculer()
 	if (pressed[pygame.K_LEFT] or pressed[pygame.K_a]):
 		robot.tourner_gauche()
 
 	
-	screen.fill((0, 0, 0))
-	img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) - 90)
+	screen.fill((255, 255, 255))
+	img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) + 90)
 	# print(math.degrees(robot.angle))
-	screen.blit(img_car_rotation, (robot.px, robot.py))
+	rect=img_car_rotation.get_rect(center=((robot.px+img_car_length/2),(robot.py+img_car_width/2)))
+	screen.blit(img_car_rotation,rect)
 	pygame.display.flip()
 	clock.tick(60)
 pygame.quit()
