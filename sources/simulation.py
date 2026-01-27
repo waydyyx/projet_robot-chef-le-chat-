@@ -25,12 +25,9 @@ def simulation():
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
 		if (pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]):
-			if (robot.px <= length and robot.px >= 0 and robot.py < width and robot.py >= 0):
-				robot.avancer()
-			print(f"px :{robot.px} py :{robot.py}")
+			robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			robot.tourner_droite()
-
 		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
 			robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
