@@ -20,6 +20,6 @@ Lors de cette première séance de projet, les actions suivantes ont été mené
   - Dylan : minimum 5 heures  
   - Guillaume : minimum 5 heures  
   - Lina : 3 heures  
-- Mise en place de la **méthode INIT** pour l’organisation du projet
+- Mise en place de la **méthode _init_** pour l’organisation du projet
 
 ---
