@@ -1,5 +1,7 @@
 import pygame
+from pygame import gfxdraw
 from class_robot import *
+
 
 def simulation():
 	pygame.init()
@@ -38,7 +40,9 @@ def simulation():
 		img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) + 90)
 		# print(math.degrees(robot.angle))
 		rect=img_car_rotation.get_rect(center=((robot.px + img_car_length / 2),(robot.py + img_car_height / 2)))
+		print(rect)
 		screen.blit(img_car_rotation, rect)
+		gfxdraw.pixel(screen, int((robot.px + img_car_length / 2) + (img_car_length / 4) * math.cos(robot.angle)), int((robot.py + img_car_height / 2) + (img_car_height / 4) * math.sin(robot.angle)), (255, 0, 0))
 		pygame.display.flip()
 		clock.tick(60)
 	pygame.quit()
