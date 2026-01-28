@@ -14,6 +14,7 @@ Pendant cette deuxième séance :
 - **Promesse pour la semaine 3**  
   - La démo doit avoir les collisions avec les bords fonctionnelles.  
   - Le robot ne doit pas pouvoir sortir de la fenêtre.
+  - pouvoir choisir la vitesse et la position initial du robot dans la fenetre, en argument lorsque l'on execute le programme
 
 - **Ajout d’un nouveau membre dans le groupe**  
   - Set up complet :  
