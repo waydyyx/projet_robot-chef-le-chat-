@@ -13,7 +13,7 @@ def simulation():
 
 	img_car_original = pygame.image.load("../images/robot_style.png").convert_alpha()
 	img_car_length, img_car_height = img_car_original.get_size()
-	print(f"length {img_car_length} width : {img_car_height}")
+	# print(f"length {img_car_length} width : {img_car_height}")
 
 	quit = 0
 
@@ -40,7 +40,7 @@ def simulation():
 		img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) + 90)
 		# print(math.degrees(robot.angle))
 		rect=img_car_rotation.get_rect(center=((robot.px + img_car_length / 2),(robot.py + img_car_height / 2)))
-		print(rect)
+		# print(rect)
 		screen.blit(img_car_rotation, rect)
 		gfxdraw.pixel(screen, int((robot.px + img_car_length / 2) + (img_car_length / 4) * math.cos(robot.angle)), int((robot.py + img_car_height / 2) + (img_car_height / 4) * math.sin(robot.angle)), (255, 0, 0))
 		pygame.display.flip()
