@@ -3,7 +3,7 @@ from pygame import gfxdraw
 from class_robot import *
 
 
-def simulation():
+def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py : int):
 	pygame.init()
 
 	length = 800 
@@ -18,7 +18,7 @@ def simulation():
 	quit = 0
 
 	clock = pygame.time.Clock()
-	robot = Robot(0, 50, 50) # angle, coordonee de depart du robot (x,y)
+	robot = Robot(vitesse, vitesse_rotation, angle, px, py) # angle, coordonee de depart du robot (x,y)
 	while not(quit):	
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
