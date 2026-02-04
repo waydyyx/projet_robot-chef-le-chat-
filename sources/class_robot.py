@@ -1,7 +1,6 @@
 import math 
 from pygame import gfxdraw
 import pygame
-from controle import *
 
 class Robot:
 	def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
