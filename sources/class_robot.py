@@ -1,6 +1,7 @@
 import math 
 from pygame import gfxdraw
 import pygame
+from controle import *
 
 class Robot:
 	def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
@@ -33,6 +34,7 @@ class Robot:
 		self.dx = math.cos(self.angle) * self.vitesse  # direction x (vecteur x ?)
 		self.dy = math.sin(self.angle) * self.vitesse  # direction y (vecteur y ?)
 		self.size = 50
+
 	def avancer(self, screen):
 		length, height = screen.get_size()
 		if (self.px + self.dx < 0 or self.px + self.dx > length - self.size or self.py + self.dy < 0 or self.py + self.dy > height - self.size):
