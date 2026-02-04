@@ -22,7 +22,6 @@ def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py 
 	robot = Robot(vitesse, vitesse_rotation, angle, px, py) # angle, coordonee de depart du robot (x,y)
 	while not(quit):	
 		for event in pygame.event.get():
-			gestion_touche(screen, event, robot)
 			if event.type == pygame.QUIT:
 				quit = 1
 		pressed = pygame.key.get_pressed()
