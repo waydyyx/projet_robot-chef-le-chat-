@@ -6,12 +6,12 @@ from class_robot import *
 def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py : int):
 	pygame.init()
 
-	length = 800 
-	width = 800
+	length = 800
+	height = 800
 
-	screen = pygame.display.set_mode((length, width))
+	screen = pygame.display.set_mode((length, height))
 
-	img_car_original = pygame.image.load("../images/robot_style.png").convert_alpha()
+	img_car_original = pygame.image.load("../images/robot_exceptionnel.png").convert_alpha()
 	img_car_length, img_car_height = img_car_original.get_size()
 	# print(f"length {img_car_length} width : {img_car_height}")
 
@@ -27,22 +27,24 @@ def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py 
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
 		if (pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]):
-			robot.avancer()
+			robot.avancer(screen)
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			robot.tourner_droite()
 		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
-			robot.reculer()
+			robot.reculer(screen)
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			robot.tourner_gauche()
 
 
 		screen.fill((255, 255, 255))
 		img_car_rotation = pygame.transform.rotate(img_car_original, -math.degrees(robot.angle) + 90)
-		# print(math.degrees(robot.angle))
+		# print(f"{img_car_rotation}")
 		rect=img_car_rotation.get_rect(center=((robot.px + img_car_length / 2),(robot.py + img_car_height / 2)))
-		# print(rect)
 		screen.blit(img_car_rotation, rect)
-		gfxdraw.pixel(screen, int((robot.px + img_car_length / 2) + (img_car_length / 4) * math.cos(robot.angle)), int((robot.py + img_car_height / 2) + (img_car_height / 4) * math.sin(robot.angle)), (255, 0, 0))
+		# robot.affiche_direction(screen)
+		# robot.affiche_robot(screen)
+		# pygame.draw.rect(screen, (255, 0, 0), rect)
+		# pygame.gfxdraw.pixel(screen, int((robot.px + img_car_length / 2) + (img_car_length / 4) * math.cos(robot.angle)), int((robot.py + img_car_height / 2) + (img_car_height / 4) * math.sin(robot.angle)), (255, 0, 0))
 		pygame.display.flip()
 		clock.tick(60)
 	pygame.quit()

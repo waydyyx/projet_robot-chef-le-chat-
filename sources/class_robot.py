@@ -1,4 +1,6 @@
 import math 
+from pygame import gfxdraw
+import pygame
 
 class Robot:
 	def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
@@ -30,8 +32,11 @@ class Robot:
 		self.py = py  # position y 
 		self.dx = math.cos(self.angle) * self.vitesse  # direction x (vecteur x ?)
 		self.dy = math.sin(self.angle) * self.vitesse  # direction y (vecteur y ?)
-	
-	def avancer(self):
+		self.size = 50
+	def avancer(self, screen):
+		length, height = screen.get_size()
+		if (self.px + self.dx < 0 or self.px + self.dx > length - self.size or self.py + self.dy < 0 or self.py + self.dy > height - self.size):
+			return 
 		self.px += self.dx
 		self.py += self.dy
 	
@@ -41,7 +46,10 @@ class Robot:
 		self.dx = math.cos(self.angle) * self.vitesse
 		self.dy = math.sin(self.angle) * self.vitesse
 	
-	def reculer(self):
+	def reculer(self, screen):
+		length, height = screen.get_size()
+		if (self.px - self.dx < 0 or self.px - self.dx > length - self.size or self.py - self.dy < 0 or self.py - self.dy > height - self.size):
+			return 
 		self.px -= self.dx
 		self.py -= self.dy
 	
@@ -50,3 +58,18 @@ class Robot:
 		self.angle = self.angle % (2 * math.pi)
 		self.dx = math.cos(self.angle) * self.vitesse
 		self.dy = math.sin(self.angle) * self.vitesse
+
+	def affiche_robot(self, screen):
+		for y in range(self.size):
+			for x in range(self.size):
+				pygame.gfxdraw.pixel(screen, int(self.px + x), int(self.py + y), (255, 0, 0))
+
+	def affiche_direction(self, screen):
+		centre = self.size / 2
+		length, height = screen.get_size()
+		i = 0
+		# while (x + math.cos(self.angle) * i + centre < length and x + math.cos(self.angle) * i + centre >= 0 and y + math.sin(self.angle) * i + centre < height and y + math.sin(self.angle)* i + centre >= 0):
+		while (i < self.size * 5):
+			pygame.gfxdraw.pixel(screen, int(self.px + math.cos(self.angle) * i + centre), int(self.py + math.sin(self.angle) * i + centre), (0, 255, 5))
+			i += 1
+
