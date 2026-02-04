@@ -37,6 +37,7 @@ class Robot:
 	def avancer(self):
 		self.px += self.dx
 		self.py += self.dy
+		return ((self.px, self.py))
 	
 	def tourner_droite(self):
 		self.angle += (math.pi / (110 - self.vitesse_rotation * 10)) 
@@ -47,6 +48,8 @@ class Robot:
 	def reculer(self):
 		self.px -= self.dx
 		self.py -= self.dy
+		return ((self.px, self.py))
+		
 	
 	def tourner_gauche(self):
 		self.angle -= (math.pi / (110 - self.vitesse_rotation * 10))

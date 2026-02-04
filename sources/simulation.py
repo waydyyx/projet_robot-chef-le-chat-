@@ -27,11 +27,11 @@ def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py 
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
 		if (pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]):
-			robot.avancer(screen)
+			robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			robot.tourner_droite()
 		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
-			robot.reculer(screen)
+			robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			robot.tourner_gauche()
 
