@@ -1,6 +1,7 @@
 import pygame
 from pygame import gfxdraw
 from class_robot import *
+from controle import *
 
 
 def simulation(vitesse : int, vitesse_rotation : int, angle : int, px : int, py : int):
