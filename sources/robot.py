@@ -5,6 +5,18 @@ from affichage import *
 
 class Robot:
     def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
+        """
+		:param vitesse: valeur compris entre 0-10 inclus pour choisir la vitesse du robot
+		:type vitesse: int
+		:param vitesse_rotation: valeur compris entre 0-10 inclus pour choisir la vitesse de rotation du robot
+		:type vitesse_rotation: int
+		:param angle: valeur compris entre 0-359 inclus pour choisir l'angle du depart du robot
+		:type angle: int
+		:param px: position x du robot
+		:type px: int
+		:param py: position y du robot
+		:type py: int 
+		"""
         # VITESSE 
         if (vitesse > 10):
             self.vitesse = 10
@@ -21,7 +33,7 @@ class Robot:
         else:
             self.vitesse_rotation = vitesse_rotation
 
-        # ANGLE
+        # ANGLE EN DEGREE
         if (angle > 359):
             self.angle = math.radians(359)
         elif (angle < 0):
@@ -37,7 +49,7 @@ class Robot:
 
     def avancer(self):
         self.px += self.dx
-        self.py += self.dy
+        self.py += self.dy        
         return (self.px, self.py, self.angle)
 
     def tourner_droite(self, angle : int = 0):
@@ -88,12 +100,14 @@ class Robot:
     
 
     def carre(self,  deplacement : int):
-        rob = Robot(self.vitesse, self.vitesse_rotation, self.angle, self.px, self.py)
+        rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
+        # print(f"self.angle : {math.degrees(self.angle)}")
         liste_coordonnes = []
         for i in range (4):
             for j in range (deplacement):
                 liste_coordonnes.append(rob.avancer())
             rob.tourner_droite(90)
+        liste_coordonnes.append((rob.px, rob.py, rob.angle))
         return liste_coordonnes
 
     

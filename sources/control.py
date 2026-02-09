@@ -24,8 +24,9 @@ def start(arene:Arene):
 			
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_c:
-					afficheur.affiche_trajet(arene, arene.robot.carre(25))
-					print(arene.robot.angle)
+					liste = arene.robot.carre(25)
+					# print(liste)
+					afficheur.affiche_trajet(arene, liste)
 
 
 		pressed = pygame.key.get_pressed()
@@ -35,6 +36,7 @@ def start(arene:Arene):
 			arene.robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
+			print(math.degrees(arene.robot.angle))
 		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, afficheur.screen))):
 			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
