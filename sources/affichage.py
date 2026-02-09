@@ -1,8 +1,8 @@
 import pygame
 from pygame import gfxdraw
-from class_robot import *
+from robot import *
 from arene import *
-from obstacle import *
+# from obstacle import *
 
 def affichage_init(arene:Arene):
     arene.screen = pygame.display.set_mode((arene.larg, arene.haut))

@@ -1,6 +1,5 @@
 import math 
-from pygame import gfxdraw
-import pygame
+# from pygame import gfxdraw
 
 class Robot:
 	def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
@@ -34,12 +33,10 @@ class Robot:
 		self.dy = math.sin(self.angle) * self.vitesse  # direction y (vecteur y ?)
 		self.size = 50
 
-	def avancer(self, screen):
-		length, height = screen.get_size()
-		if (self.px + self.dx < 0 or self.px + self.dx > length - self.size or self.py + self.dy < 0 or self.py + self.dy > height - self.size):
-			return 
+	def avancer(self):
 		self.px += self.dx
 		self.py += self.dy
+		return (self.px, self.py)
 	
 	def tourner_droite(self):
 		self.angle += (math.pi / (110 - self.vitesse_rotation * 10)) 
@@ -47,12 +44,10 @@ class Robot:
 		self.dx = math.cos(self.angle) * self.vitesse
 		self.dy = math.sin(self.angle) * self.vitesse
 	
-	def reculer(self, screen):
-		length, height = screen.get_size()
-		if (self.px - self.dx < 0 or self.px - self.dx > length - self.size or self.py - self.dy < 0 or self.py - self.dy > height - self.size):
-			return 
+	def reculer(self):
 		self.px -= self.dx
 		self.py -= self.dy
+		return (self.px, self.py)
 	
 	def tourner_gauche(self):
 		self.angle -= (math.pi / (110 - self.vitesse_rotation * 10))

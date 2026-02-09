@@ -1,5 +1,4 @@
-from class_robot import *
-from simulation  import *
+from robot import *
 from control import *
 import sys
 if __name__ == "__main__":
@@ -11,7 +10,7 @@ if __name__ == "__main__":
 	assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	#simulation(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]))
 
-	arene=Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
+	arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
 	start(arene)
 
 
