@@ -1,6 +1,7 @@
 import pygame
 from arene import *
 from obstacle import *
+import time 
 
 # def affichage_init(arene:Arene):
 #     arene.screen = pygame.display.set_mode((arene.larg, arene.haut))
@@ -40,3 +41,12 @@ class Affichage :
         # pygame.draw.rect(screen, (255, 0, 0), rect)
         # pygame.gfxdraw.pixel(screen, int((arene.robot.px + arene.rob_larg / 2) + (arene.rob_larg / 4) * math.cos(arene.robot.angle)), int((robot.py + arene.rob_haut / 2) + (arene.rob_haut / 4) * math.sin(robot.angle)), (255, 0, 0))
         pygame.display.flip()
+
+
+    def affiche_trajet(self, arene : Arene, liste_coordonnes: list) :
+        for i in range (len(liste_coordonnes)):
+            arene.robot.px = liste_coordonnes[i][0]
+            arene.robot.py = liste_coordonnes[i][1]
+            arene.robot.angle = liste_coordonnes[i][2]
+            self.affiche(arene)
+            time.sleep(1/ (len(liste_coordonnes) // 4) )

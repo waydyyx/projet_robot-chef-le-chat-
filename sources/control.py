@@ -1,12 +1,12 @@
 from affichage import *
 
-def est_dehors_avancer(robot : Robot, screen):
+def est_dehors_avancer(robot, screen):
 	length, height = screen.get_size()
 	if (robot.px + robot.dx < 0 or robot.px + robot.dx > length - robot.size or robot.py + robot.dy < 0 or robot.py + robot.dy > height - robot.size):
 		return (1)
 	return (0)
 	
-def est_dehors_reculer(robot : Robot, screen):
+def est_dehors_reculer(robot, screen):
 	length, height = screen.get_size()
 	if (robot.px - robot.dx < 0 or robot.px - robot.dx > length - robot.size or robot.py - robot.dy < 0 or robot.py - robot.dy > height - robot.size):
 		return (1)
@@ -21,6 +21,13 @@ def start(arene:Arene):
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				quit = 1
+			
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_c:
+					afficheur.affiche_trajet(arene, arene.robot.carre(25))
+					print(arene.robot.angle)
+
+
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
@@ -32,6 +39,14 @@ def start(arene:Arene):
 			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			arene.robot.tourner_gauche()
+
+		# if ( pressed[pygame.K_c]):
+		# 	arene.robot.carre(10)
+		# 	# arene.robot.tourner_droite(90)
+			# print("c")
+
+
+
 		afficheur.affiche(arene)
 		clock.tick(60)
 	pygame.quit()
