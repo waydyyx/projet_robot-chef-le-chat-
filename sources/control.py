@@ -15,7 +15,7 @@ def est_dehors_reculer(robot : Robot, screen):
 def start(arene:Arene):
 	pygame.init()
 	quit = 0
-	affichage_init(arene)
+	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
 	clock = pygame.time.Clock()
 	while not(quit):	
 		for event in pygame.event.get():
@@ -24,14 +24,14 @@ def start(arene:Arene):
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
-		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(est_dehors_avancer(arene.robot, arene.screen))):
+		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(est_dehors_avancer(arene.robot, afficheur.screen))):
 			arene.robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
-		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, arene.screen))):
+		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, afficheur.screen))):
 			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			arene.robot.tourner_gauche()
-		affichage(arene)
+		afficheur.affiche(arene)
 		clock.tick(60)
 	pygame.quit()

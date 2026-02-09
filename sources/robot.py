@@ -69,3 +69,4 @@ class Robot:
 	# 		pygame.gfxdraw.pixel(screen, int(self.px + math.cos(self.angle) * i + centre), int(self.py + math.sin(self.angle) * i + centre), (0, 255, 5))
 	# 		i += 1
 
+	

@@ -8,6 +8,3 @@ class Arene:
         self.haut = haut
         self.robot = robot
         #self.obstacle=obstacles
-        self.img_car = 0
-        self.rob_larg = 0
-        self.rob_haut = 0
