@@ -1,9 +1,16 @@
-import pygame
-from pygame import gfxdraw
-from class_robot import *
-from arene import *
-from obstacle import *
 from affichage import *
+
+def est_dehors_avancer(robot : Robot, screen):
+	length, height = screen.get_size()
+	if (robot.px + robot.dx < 0 or robot.px + robot.dx > length - robot.size or robot.py + robot.dy < 0 or robot.py + robot.dy > height - robot.size):
+		return (1)
+	return (0)
+	
+def est_dehors_reculer(robot : Robot, screen):
+	length, height = screen.get_size()
+	if (robot.px - robot.dx < 0 or robot.px - robot.dx > length - robot.size or robot.py - robot.dy < 0 or robot.py - robot.dy > height - robot.size):
+		return (1)
+	return (0)
 
 def start(arene:Arene):
 	pygame.init()
@@ -17,12 +24,12 @@ def start(arene:Arene):
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
-		if (pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]):
-			arene.robot.avancer(arene.screen)
+		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(est_dehors_avancer(arene.robot, arene.screen))):
+			arene.robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
-		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s]):
-			arene.robot.reculer(arene.screen)
+		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, arene.screen))):
+			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			arene.robot.tourner_gauche()
 		affichage(arene)
