@@ -7,7 +7,9 @@ class Arene:
         self.larg = larg
         self.haut = haut
         self.robot = robot
-        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut),50,50)for x in range (10)]
+        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut),50,50)for x in range (10)] + [Obstacle(100,100,50,50)]
+        
+
 
     def collision_obstacle_avancer(self):
         """test la collision sur x
@@ -28,14 +30,19 @@ class Arene:
             if(self.robot.px + self.robot.size - self.robot.dx > obstacle.px and self.robot.px - self.robot.dx < obstacle.px + obstacle.larg and self.robot.py + self.robot.size - self.robot.dy > obstacle.py and self.robot.py - self.robot.dy < obstacle.py + obstacle.haut) :
                 return True
         return False 
-
-    def est_dehors_avancer(self):
-        if (self.robot.px + self.robot.dx < 0 or self.robot.px + self.robot.dx > self.larg - self.robot.size or self.robot.py + self.robot.dy < 0 or self.robot.py + self.robot.dy > self.haut - self.robot.size):
-            return (1)
-        return (0)
     
-    def est_dehors_reculer(self):
-        if (self.robot.px - self.robot.dx < 0 or self.robot.px - self.robot.dx > self.larg - self.robot.size or self.robot.py - self.robot.dy < 0 or self.robot.py - self.robot.dy > self.haut - self.robot.size):
-            return (1)
-        return (0)
-
+    def detection_obstacle(self): # prend un screen en parametre si on veut afficher
+        centre = self.robot.size / 2
+        # length, height = screen.get_size()
+        i = 0
+        while ((self.robot.px + math.cos(self.robot.angle) * i + centre < self.larg and self.robot.px + math.cos(self.robot.angle) * i + centre >= 0 and self.robot.py + math.sin(self.robot.angle) * i + centre < self.haut and self.robot.py + math.sin(self.robot.angle)* i + centre >= 0) and not(self.collision_point(int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre)))):
+            #pygame.gfxdraw.pixel(screen, int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre), (0, 255, 5))
+            i += 1
+        return i < 100, i
+    
+    def collision_point(self,x,y):
+        for obstacle in self.obstacles:
+            if( (x < obstacle.px + obstacle.larg) and (y < obstacle.py + obstacle.haut) and ( x > obstacle.px) and ( y > obstacle.py)):
+                return True
+        return False
+        
