@@ -99,17 +99,31 @@ class Robot:
 
 
 
+    def rectangle( self, longeur : int, hauteur : int):
+            rob = Robot( self.vitesse , self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
+            liste_coordonnes = []
+            for i in range (2):
+                for j in range(longeur) :
+                    liste_coordonnes.append( rob.avancer())
+                rob.tourner_droite(90)
+                for k in range (hauteur):
+                    liste_coordonnes.append(rob.avancer())
+                rob.tourner_droite(90)
+            liste_coordonnes.append((rob.px, rob.py, rob.angle))
+            return liste_coordonnes
+
+        
     def carre(self,  deplacement : int):
-        rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
-        # print(f"self.angle : {math.degrees(self.angle)}")
-        liste_coordonnes = []
-        for i in range (4):
-            for j in range (deplacement):
-                liste_coordonnes.append(rob.avancer())
-            rob.tourner_droite(90)
-        liste_coordonnes.append((rob.px, rob.py, rob.angle))
-        return liste_coordonnes
-    
+            
+        return self.rectangle( deplacement, deplacement)
+            # rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
+            # # print(f"self.angle : {math.degrees(self.angle)}")
+            # liste_coordonnes = []
+            # for i in range (4):
+            #     for j in range (deplacement):
+            #         liste_coordonnes.append(rob.avancer())
+            #     rob.tourner_droite(90)
+            # liste_coordonnes.append((rob.px, rob.py, rob.angle))
+            # return liste_coordonnes
+        
 
-
-    
