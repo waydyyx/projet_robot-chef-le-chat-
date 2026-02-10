@@ -29,4 +29,13 @@ class Arene:
                 return True
         return False 
 
+    def est_dehors_avancer(self):
+        if (self.robot.px + self.robot.dx < 0 or self.robot.px + self.robot.dx > self.larg - self.robot.size or self.robot.py + self.robot.dy < 0 or self.robot.py + self.robot.dy > self.haut - self.robot.size):
+            return (1)
+        return (0)
     
+    def est_dehors_reculer(self):
+        if (self.robot.px - self.robot.dx < 0 or self.robot.px - self.robot.dx > self.larg - self.robot.size or self.robot.py - self.robot.dy < 0 or self.robot.py - self.robot.dy > self.haut - self.robot.size):
+            return (1)
+        return (0)
+
