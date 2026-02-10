@@ -12,6 +12,7 @@ def est_dehors_reculer(robot, screen):
 		return (1)
 	return (0)
 
+
 def start(arene:Arene):
 	pygame.init()
 	quit = 0
@@ -32,12 +33,12 @@ def start(arene:Arene):
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
-		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(est_dehors_avancer(arene.robot, afficheur.screen))):
+		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(est_dehors_avancer(arene.robot, afficheur.screen) or arene.collision_obstacle_avancer())):
 			arene.robot.avancer()
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
 			print(math.degrees(arene.robot.angle))
-		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, afficheur.screen))):
+		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, afficheur.screen) or arene.collision_obstacle_reculer())):
 			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			arene.robot.tourner_gauche()

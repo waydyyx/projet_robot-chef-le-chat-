@@ -2,6 +2,7 @@ import pygame
 from arene import *
 from obstacle import *
 import time 
+from pygame import gfxdraw
 
 # def affichage_init(arene:Arene):
 #     arene.screen = pygame.display.set_mode((arene.larg, arene.haut))
@@ -32,6 +33,7 @@ class Affichage :
 
     def affiche(self, arene : Arene):
         self.screen.fill((255, 255, 255))
+        self.affiche_obstacle(arene)
         img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(arene.robot.angle) + 90)
         # print(f"{img_car_rotation}")
         rect = img_robot_rotation.get_rect(center=((arene.robot.px + self.img_robot_larg / 2),(arene.robot.py + self.img_robot_haut / 2)))
@@ -42,6 +44,11 @@ class Affichage :
         # pygame.gfxdraw.pixel(screen, int((arene.robot.px + arene.rob_larg / 2) + (arene.rob_larg / 4) * math.cos(arene.robot.angle)), int((robot.py + arene.rob_haut / 2) + (arene.rob_haut / 4) * math.sin(robot.angle)), (255, 0, 0))
         pygame.display.flip()
 
+    def affiche_obstacle(self, arene:Arene):
+        for ob in arene.obstacles:
+            for x in range (ob.px , ob.px + ob.larg):
+                for y in range (ob.py , ob.py + ob.haut):
+                    pygame.gfxdraw.pixel(self.screen,x,y,(255, 0, 0))
 
     def affiche_trajet(self, arene : Arene, liste_coordonnes: list) :
         for i in range (len(liste_coordonnes)):
