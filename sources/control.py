@@ -38,7 +38,7 @@ def start(arene:Arene):
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
 			print(math.degrees(arene.robot.angle))
-		if (pressed[pygame.K_DOWN] or pressed[pygame.K_s] and not(est_dehors_reculer(arene.robot, afficheur.screen) or arene.collision_obstacle_reculer())):
+		if ((pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and not(est_dehors_reculer(arene.robot, afficheur.screen) or arene.collision_obstacle_reculer())):
 			arene.robot.reculer()
 		if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
 			arene.robot.tourner_gauche()

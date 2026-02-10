@@ -97,7 +97,7 @@ class Robot:
     #             time.sleep(0.1)
     #         self.tourner_droite(90)
 
-    
+
 
     def carre(self,  deplacement : int):
         rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
@@ -109,5 +109,7 @@ class Robot:
             rob.tourner_droite(90)
         liste_coordonnes.append((rob.px, rob.py, rob.angle))
         return liste_coordonnes
+    
+
 
     
