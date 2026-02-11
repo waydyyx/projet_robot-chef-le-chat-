@@ -60,5 +60,5 @@ class Affichage :
             # arene.robot.dx = math.cos(arene.robot.angle) * 5
             # arene.robot.dy = math.sin(arene.robot.angle) * 5
             self.affiche(arene)
-            time.sleep(1/ (len(liste_coordonnes)))
+            time.sleep(1/100)
         self.affiche(arene)

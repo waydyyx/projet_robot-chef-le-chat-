@@ -22,6 +22,13 @@ def start(arene:Arene):
 					liste = arene.robot.rectangle(40,20)
 					afficheur.affiche_trajet(arene , liste)
 
+				elif event.key == pygame.K_p:
+					for i in range (6):
+						liste= arene.robot.run(arene)
+						print(liste)
+						afficheur.affiche_trajet(arene, liste)
+
+
 
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
