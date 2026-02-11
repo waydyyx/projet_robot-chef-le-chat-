@@ -7,6 +7,7 @@ def start(arene:Arene):
 	clock = pygame.time.Clock()
 	# print(arene.collision_point(90,90))
 
+	autonome = None
 	while not(quit):	
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -23,19 +24,15 @@ def start(arene:Arene):
 					afficheur.affiche_trajet(arene , liste)
 
 				elif event.key == pygame.K_p:
-					for i in range (6):
-						liste= arene.robot.run(arene)
-						print(liste)
+					for x in range(15):
+						liste= arene.robot.autonome(arene)
 						afficheur.affiche_trajet(arene, liste)
-
-
 
 		pressed = pygame.key.get_pressed()
 		if (pressed[pygame.K_ESCAPE]):
 			quit = 1
 		if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(arene.est_dehors_avancer() or arene.collision_obstacle_avancer())):
 			arene.robot.avancer()
-			print(arene.detection_obstacle())
 		if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
 			arene.robot.tourner_droite()
 		if ((pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and not(arene.est_dehors_reculer() or arene.collision_obstacle_reculer())):

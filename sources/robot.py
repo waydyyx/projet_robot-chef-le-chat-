@@ -126,7 +126,7 @@ class Robot:
             # liste_coordonnes.append((rob.px, rob.py, rob.angle))
             # return liste_coordonnes
 
-    def run(self, arene):
+    def autonome(self, arene):
         liste_coordonnes = []
         while not(arene.detection_obstacle()) :
             if arene.collision_obstacle_avancer() or arene.est_dehors_avancer():
