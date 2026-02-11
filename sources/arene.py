@@ -7,8 +7,7 @@ class Arene:
         self.larg = larg
         self.haut = haut
         self.robot = robot
-        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut),50,50)for x in range (10)] + [Obstacle(100,100,50,50)]
-        
+        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut),50,50)for x in range (10)]        
 
 
     def collision_obstacle_avancer(self):
@@ -38,7 +37,7 @@ class Arene:
         while ((self.robot.px + math.cos(self.robot.angle) * i + centre < self.larg and self.robot.px + math.cos(self.robot.angle) * i + centre >= 0 and self.robot.py + math.sin(self.robot.angle) * i + centre < self.haut and self.robot.py + math.sin(self.robot.angle)* i + centre >= 0) and not(self.collision_point(int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre)))):
             #pygame.gfxdraw.pixel(screen, int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre), (0, 255, 5))
             i += 1
-        return i < 100, i
+        return i < 50, i
     
     def collision_point(self,x,y):
         for obstacle in self.obstacles:

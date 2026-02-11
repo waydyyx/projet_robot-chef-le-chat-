@@ -32,7 +32,7 @@ def start(arene:Arene):
 					afficheur.affiche_trajet(arene, liste)
 
 				elif event.key == pygame.K_r:
-					liste = arene.robot.rectangle(35,20)
+					liste = arene.robot.rectangle(40,20)
 					afficheur.affiche_trajet(arene , liste)
 
 
