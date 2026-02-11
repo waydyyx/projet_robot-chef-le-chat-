@@ -125,5 +125,16 @@ class Robot:
             #     rob.tourner_droite(90)
             # liste_coordonnes.append((rob.px, rob.py, rob.angle))
             # return liste_coordonnes
-        
 
+    def run(self, arene):
+        liste_coordonnes = []
+        while not(arene.detection_obstacle()) :
+            if arene.collision_obstacle_avancer() or arene.est_dehors_avancer():
+                self.tourner_droite(120)
+                liste_coordonnes.append((self.px,self.py,self.angle))
+                return liste_coordonnes
+            liste_coordonnes.append(self.avancer())
+        #self.reculer()
+        self.tourner_droite(90)
+        liste_coordonnes.append((self.px,self.py,self.angle))
+        return liste_coordonnes
