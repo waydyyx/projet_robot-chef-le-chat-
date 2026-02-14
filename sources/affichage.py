@@ -23,7 +23,6 @@ from pygame import gfxdraw
 #     pygame.display.flip()
 
 
-
 class Affichage :
     def __init__(self , screen):
         self.screen = screen

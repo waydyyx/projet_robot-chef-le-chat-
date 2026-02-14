@@ -4,9 +4,11 @@ import time
 from affichage import *
 
 class Robot:
-    def __init__(self, vitesse : int, vitesse_rotation : int, angle : int, px : int = 0, py : int = 0):
+    def __init__(self, vitesse_d: int, vitesse_g: int, vitesse_rot :  int, angle : int, px : int = 0, py : int = 0):
         """
-		:param vitesse: valeur compris entre 0-10 inclus pour choisir la vitesse du robot
+		:param vitesse_d: valeur compris entre 0-10 inclus pour choisir la vitesse_droite du robot
+		:type vitesse: int
+        :param vitesse_g: valeur compris entre 0-10 inclus pour choisir la vitesse_gauche du robot
 		:type vitesse: int
 		:param vitesse_rotation: valeur compris entre 0-10 inclus pour choisir la vitesse de rotation du robot
 		:type vitesse_rotation: int
@@ -17,21 +19,29 @@ class Robot:
 		:param py: position y du robot
 		:type py: int 
 		"""
-        # VITESSE 
-        if (vitesse > 10):
-            self.vitesse = 10
-        elif (vitesse < 0):
-            self.vitesse = 0
-        else:
-            self.vitesse = vitesse
 
-        # VITESSE_ROTATION
-        if (vitesse_rotation > 10):
-            self.vitesse_rotation = 10
-        elif (vitesse_rotation < 0):
-            self.vitesse_rotation = 0
+        # VITESSE_DROITE
+        if (vitesse_d > 100):
+            self.vitesse_d = 100
+        elif (vitesse_d < 0):
+            self.vitesse_d = 0
         else:
-            self.vitesse_rotation = vitesse_rotation
+            self.vitesse_d = vitesse_d
+
+        # VITESSE GAUCHE
+        if (vitesse_g > 100):
+            self.vitesse_g = 100
+        elif (vitesse_g < 0):
+            self.vitesse_g = 0
+        else:
+            self.vitesse_g = vitesse_g
+
+        if (vitesse_rot > 10):
+            self.vitesse_rot = 10
+        elif (vitesse_rot < 0):
+            self.vitesse_rot = 0
+        else:
+            self.vitesse_rot = vitesse_rot
 
         # ANGLE EN DEGREE
         if (angle > 359):
@@ -43,20 +53,30 @@ class Robot:
 
         self.px = px  # position x
         self.py = py  # position y 
-        self.dx = math.cos(self.angle) * self.vitesse  # direction x (vecteur x ?)
-        self.dy = math.sin(self.angle) * self.vitesse  # direction y (vecteur y ?)
+        self.dx = math.cos(self.angle) * vitesse_g  # direction x (vecteur x ?)
+        self.dy = math.sin(self.angle) * vitesse_d  # direction y (vecteur y ?)
         self.size = 50
+        self.vitesse = 3
 
     def avancer(self):
         self.px += self.dx
-        self.py += self.dy        
+        self.py += self.dy
+        # self.angle += (math.pi / (110 - self.vitesse_d-self.vitesse_g * 10)) 
+        if (self.vitesse_d > self.vitesse_g):
+            self.angle -= (math.pi / (520 - (self.vitesse_d - self.vitesse_g) * 5))
+            self.dx = math.cos(self.angle) * self.vitesse
+            self.dy = math.sin(self.angle) * self.vitesse    
+        elif (self.vitesse_g > self.vitesse_d):
+            self.angle += (math.pi / (520 - (self.vitesse_g - self.vitesse_d) * 5))
+            self.dx = math.cos(self.angle) * self.vitesse
+            self.dy = math.sin(self.angle) * self.vitesse
         return (self.px, self.py, self.angle)
 
     def tourner_droite(self, angle : int = 0):
         if (angle != 0):
             self.angle += math.radians(angle)
         else:
-            self.angle += (math.pi / (110 - self.vitesse_rotation * 10)) 
+            self.angle += (math.pi / (110 - self.vitesse_rot * 10)) 
         self.angle = self.angle % (2 * math.pi)
         self.dx = math.cos(self.angle) * self.vitesse
         self.dy = math.sin(self.angle) * self.vitesse
@@ -70,7 +90,7 @@ class Robot:
         if (angle != 0):
             self.angle -= math.radians(angle)
         else:
-            self.angle -= (math.pi / (110 - self.vitesse_rotation * 10))
+            self.angle -= (math.pi / (110 - self.vitesse_rot * 10))
         self.angle = self.angle % (2 * math.pi)
         self.dx = math.cos(self.angle) * self.vitesse
         self.dy = math.sin(self.angle) * self.vitesse

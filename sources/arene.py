@@ -7,7 +7,8 @@ class Arene:
         self.larg = larg
         self.haut = haut
         self.robot = robot
-        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut),50,50)for x in range (10)]        
+        # self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
+        self.obstacles = []      
 
     def est_dehors_avancer(self):
         if (self.robot.px + self.robot.dx < 0 or self.robot.px + self.robot.dx > self.larg - self.robot.size or self.robot.py + self.robot.dy < 0 or self.robot.py + self.robot.dy > self.haut - self.robot.size):
