@@ -7,18 +7,19 @@ class Arene:
         self.larg = larg
         self.haut = haut
         self.robot = robot
-        # self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
-        self.obstacles = []      
+        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
+    
 
-    def est_dehors_avancer(self):
-        if (self.robot.px + self.robot.dx < 0 or self.robot.px + self.robot.dx > self.larg - self.robot.size or self.robot.py + self.robot.dy < 0 or self.robot.py + self.robot.dy > self.haut - self.robot.size):
-            return (1)
-        return (0)
+    # def est_dehors_avancer(self):
+    #     if (self.robot.dx < 0 or self.robot.dx > self.larg - self.robot.size or self.robot.dy < 0 or self.robot.dy > self.haut - self.robot.size):
+    #         return (1)
+    #     return (0)
 	
-    def est_dehors_reculer(self):
-        if (self.robot.px - self.robot.dx < 0 or self.robot.px - self.robot.dx > self.larg - self.robot.size or self.robot.py - self.robot.dy < 0 or self.robot.py - self.robot.dy > self.haut - self.robot.size):
-            return (1)
-        return (0)
+    # def est_dehors_reculer(self):
+    #     if (self.robot.dx < 0 or self.robot.dx > self.larg - self.robot.size or self.robot.dy < 0 or self.robot.dy > self.haut - self.robot.size):
+    #         return (1)
+    #     return (0)
+    
     def est_dehors_avancer(self):
         if (self.robot.px + self.robot.dx < 0 or self.robot.px + self.robot.dx > self.larg - self.robot.size or self.robot.py + self.robot.dy < 0 or self.robot.py + self.robot.dy > self.haut - self.robot.size):
             return (1)
@@ -49,7 +50,7 @@ class Arene:
                 return True
         return False 
     
-    def detection_obstacle(self): # prend un screen en parametre si on veut afficher
+    def detection_obstacle(self,screen): # prend un screen en parametre si on veut afficher
         """
         Docstring for detection_obstacle
         
@@ -58,8 +59,9 @@ class Arene:
         centre = self.robot.size / 2
         # length, height = screen.get_size()
         i = 0
-        while ((self.robot.px + math.cos(self.robot.angle) * i + centre < self.larg and self.robot.px + math.cos(self.robot.angle) * i + centre >= 0 and self.robot.py + math.sin(self.robot.angle) * i + centre < self.haut and self.robot.py + math.sin(self.robot.angle)* i + centre >= 0) and not(self.collision_point(int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre)))):
-            # pygame.gfxdraw.pixel(screen, int(self.robot.px + math.cos(self.robot.angle) * i + centre), int(self.robot.py + math.sin(self.robot.angle) * i + centre), (0, 255, 5))
+        angle=-self.robot.angle-math.pi/2
+        while ((self.robot.px + math.cos(angle) * i + centre < self.larg and self.robot.px + math.cos(angle) * i + centre >= 0 and self.robot.py + math.sin(angle) * i + centre < self.haut and self.robot.py + math.sin(angle)* i + centre >= 0) and not(self.collision_point(int(self.robot.px + math.cos(angle) * i + centre), int(self.robot.py + math.sin(angle) * i + centre)))):
+            pygame.gfxdraw.pixel(screen, int(self.robot.px + math.cos(angle) * i + centre), int(self.robot.py + math.sin(angle) * i + centre), (0, 255, 5))
             i += 1
         return i < 50
     

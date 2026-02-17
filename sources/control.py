@@ -48,5 +48,5 @@ def start(arene:Arene):
 
 
 		afficheur.affiche(arene)
-		clock.tick(60)
+		clock.tick(200)
 	pygame.quit()

@@ -55,8 +55,8 @@ class Robot:
         self.py = py  # position y 
         #self.dx = math.cos(self.angle) * vitesse_g  # direction x (vecteur x ?)
         #self.dy = math.sin(self.angle) * vitesse_d  # direction y (vecteur y ?)
-        self.dx=px
-        self.dy=py
+        self.dx=0
+        self.dy=0
         self.size = 50
         self.vitesse = (self.vitesse_g+self.vitesse_d)/2
 
@@ -75,6 +75,8 @@ class Robot:
     #     return (self.px, self.py, self.angle)
 
     def avancer(self):
+        self.px+=self.dx
+        self.py+=self.dy
         if self.vitesse_d==self.vitesse_g:
             x= 0
             y= -self.vitesse_d
@@ -84,35 +86,47 @@ class Robot:
             x=-((1-math.cos((vit_max-vit_min)/self.size))*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
             y=-(math.sin((vit_max-vit_min)/self.size)*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
             self.angle+=(self.vitesse_d-self.vitesse_g)/(self.size+(vit_min*self.size)/(vit_max-vit_min))
-        self.px += math.cos(self.angle)*x + math.cos(self.angle-math.pi/2)*y
-        self.py += math.cos(self.angle-math.pi/2)*x + math.cos(self.angle)*y
-        print(self.dx)
+        self.dx = math.cos(self.angle)*x + math.cos(self.angle-math.pi/2)*y
+        self.dy = math.cos(self.angle-math.pi/2)*x + math.cos(self.angle)*y
         self.angle = self.angle % (2 * math.pi)
+        # self.dx = math.cos(self.angle) * self.vitesse
+        # self.dy = math.sin(self.angle) * self.vitesse
         return (self.px, self.py, self.angle)
 
-    # def tourner_droite(self, angle : int = 0):
-    #     if (angle != 0):
-    #         self.angle -= math.radians(angle)
-    #     else:
-    #         self.angle -= (math.pi / (110 - self.vitesse_rot * 10)) 
-    #     self.angle = self.angle % (2 * math.pi)
-    #     self.dx = math.cos(self.angle) * self.vitesse_d
-    #     self.dy = math.sin(self.angle) * self.vitesse_d
-
     def tourner_droite(self, angle : int = 0):
-        d=self.vitesse_d
-        g=self.vitesse_g
-        self.vitesse_d= -self.vitesse_rot/10
-        self.vitesse_g= self.vitesse_rot/10
-        self.avancer()
-        self.vitesse_g=g
-        self.vitesse_d=d
+        if (angle != 0):
+            self.angle -= math.radians(angle)
+        else:
+            self.angle -= (math.pi / (110 - self.vitesse_rot * 10)) 
+        self.angle = self.angle % (2 * math.pi)
+        if self.vitesse_d==self.vitesse_g:
+            x= 0
+            y= -self.vitesse_d
+        else:
+            vit_max=max(self.vitesse_d,self.vitesse_g)
+            vit_min=min(self.vitesse_d,self.vitesse_g)
+            x=-((1-math.cos((vit_max-vit_min)/self.size))*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
+            y=-(math.sin((vit_max-vit_min)/self.size)*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
+        self.dx = math.cos(self.angle)*x + math.cos(self.angle-math.pi/2)*y
+        self.dy = math.cos(self.angle-math.pi/2)*x + math.cos(self.angle)*y
+        
+
+
+    # def tourner_droite(self, angle : int = 0):
+    #     d=self.vitesse_d
+    #     g=self.vitesse_g
+    #     self.vitesse_d= -self.vitesse_rot/10
+    #     self.vitesse_g= self.vitesse_rot/10
+    #     self.avancer()
+    #     self.vitesse_g=g
+    #     self.vitesse_d=d
 
     # def reculer(self):
     #     self.px -= self.dx
     #     self.py -= self.dy
     #     return (self.px, self.py, self.angle)
-
+    #     self.px += self.dx
+    #     self.py += self.dy
 
     def reculer(self):
         if self.vitesse_d==self.vitesse_g:
@@ -131,23 +145,33 @@ class Robot:
         #self.dy = math.sin(self.angle) * y
         return (self.px, self.py, self.angle)
 
-    # def tourner_gauche(self, angle : int = 0):
-    #     if (angle != 0):
-    #         self.angle += math.radians(angle)
-    #     else:
-    #         self.angle += (math.pi / (110 - self.vitesse_rot * 10))
-    #     self.angle = self.angle % (2 * math.pi)
-    #     self.dx = math.cos(self.angle) * self.vitesse
-    #     self.dy = math.sin(self.angle) * self.vitesse
-
     def tourner_gauche(self, angle : int = 0):
-        g=self.vitesse_g
-        d=self.vitesse_d
-        self.vitesse_d= self.vitesse_rot/10
-        self.vitesse_g= -self.vitesse_rot/10
-        self.avancer()
-        self.vitesse_g=g
-        self.vitesse_d=d
+        if (angle != 0):
+            self.angle += math.radians(angle)
+        else:
+            self.angle += (math.pi / (110 - self.vitesse_rot * 10))
+        self.angle = self.angle % (2 * math.pi)
+        self.dx = math.cos(self.angle) * self.vitesse
+        self.dy = math.sin(self.angle) * self.vitesse
+        if self.vitesse_d==self.vitesse_g:
+            x= 0
+            y= -self.vitesse_d
+        else:
+            vit_max=max(self.vitesse_d,self.vitesse_g)
+            vit_min=min(self.vitesse_d,self.vitesse_g)
+            x=-((1-math.cos((vit_max-vit_min)/self.size))*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
+            y=-(math.sin((vit_max-vit_min)/self.size)*(self.size/2+(vit_min*self.size)/(vit_max-vit_min)))
+        self.dx = math.cos(self.angle)*x + math.cos(self.angle-math.pi/2)*y
+        self.dy = math.cos(self.angle-math.pi/2)*x + math.cos(self.angle)*y
+
+    # def tourner_gauche(self, angle : int = 0):
+    #     g=self.vitesse_g
+    #     d=self.vitesse_d
+    #     self.vitesse_d= self.vitesse_rot/10
+    #     self.vitesse_g= -self.vitesse_rot/10
+    #     self.avancer()
+    #     self.vitesse_g=g
+    #     self.vitesse_d=d
 
     # def affiche_robot(self, screen):
     # 	for y in range(self.size):
