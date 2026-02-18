@@ -1,6 +1,3 @@
-import math 
-from pygame import gfxdraw
-import pygame
 
 class Obstacle:
     def __init__(self, px:int, py:int, larg:int, haut:int):
