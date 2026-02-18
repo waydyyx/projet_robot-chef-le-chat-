@@ -1,6 +1,10 @@
-from robot import *
-from control import *
+from robot import Robot
+from control import start
+from arene import Arene
 import sys
+import pygame
+
+
 if __name__ == "__main__":
 	assert len(sys.argv) == 7, "Veuillez enter 6 arguments, vitesse_droite ([int] 0-100), vitesse_gauche ([int] 0-100), vitesse_rot ([int] 0-100), l'angle de depart ([int] 0-359), position x ([int]), position y ([int])"
 	assert sys.argv[1].isdigit(), "La vitesse_droite doit etre un int."

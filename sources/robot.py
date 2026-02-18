@@ -1,7 +1,7 @@
 import math 
 import pygame
 import time 
-from affichage import *
+from affichage import Affichage
 
 class Robot:
     def __init__(self, vitesse_g: int, vitesse_d: int, vitesse_rot :  int, angle : int, px : int = 0, py : int = 0):

@@ -1,4 +1,7 @@
-from affichage import *
+from affichage import Affichage
+from arene import Arene
+import math
+import pygame
 
 def rectangle(arene:Arene, longeur : int, hauteur : int, vitesse: int):
     d=arene.robot.vitesse_d 

@@ -1,5 +1,6 @@
-from obstacle import *
+from obstacle import Obstacle
 import random
+import math
 
 
 class Arene:
