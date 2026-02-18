@@ -50,7 +50,7 @@ class Arene:
                 return True
         return False 
     
-    def detection_obstacle(self,screen): # prend un screen en parametre si on veut afficher
+    def detection_obstacle(self): # prend un screen en parametre si on veut afficher
         """
         Docstring for detection_obstacle
         

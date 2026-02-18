@@ -10,35 +10,35 @@ def rectangle(arene:Arene, longeur : int, hauteur : int, vitesse: int):
         arene.robot.vitesse_d=vitesse
         arene.robot.vitesse_g=vitesse
         for j in range(longeur) :
-            liste_coordonnes.append( arene.robot.avancer())
             if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
                 arene.robot.vitesse_g=g
                 arene.robot.vitesse_d=d
                 return liste_coordonnes
-        arene.robot.vitesse_d = 0
-        arene.robot.vitesse_g = 2*math.pi/2
+            liste_coordonnes.append( arene.robot.avancer())
+        arene.robot.vitesse_d = -2*math.pi/8
+        arene.robot.vitesse_g = 2*math.pi/8
         for i in range(25):
-            liste_coordonnes.append( arene.robot.avancer())
             if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
                 arene.robot.vitesse_g=g
                 arene.robot.vitesse_d=d
                 return liste_coordonnes
+            liste_coordonnes.append( arene.robot.avancer())
         arene.robot.vitesse_d=vitesse
         arene.robot.vitesse_g=vitesse
         for k in range (hauteur):
+            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
+                arene.robot.vitesse_g=g
+                arene.robot.vitesse_d=d
+                return liste_coordonnes
             liste_coordonnes.append(arene.robot.avancer())
-            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
-                arene.robot.vitesse_g=g
-                arene.robot.vitesse_d=d
-                return liste_coordonnes
-        arene.robot.vitesse_d = 0
-        arene.robot.vitesse_g = 2*math.pi/2
+        arene.robot.vitesse_d = -2*math.pi/8
+        arene.robot.vitesse_g = 2*math.pi/8
         for i in range(25):
-            liste_coordonnes.append( arene.robot.avancer())
             if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
                 arene.robot.vitesse_g=g
                 arene.robot.vitesse_d=d
                 return liste_coordonnes
+            liste_coordonnes.append( arene.robot.avancer())
     liste_coordonnes.append((arene.robot.px, arene.robot.py, arene.robot.angle))
     arene.robot.vitesse_g=g
     arene.robot.vitesse_d=d
@@ -68,11 +68,11 @@ def start(arene:Arene):
                     afficheur.affiche_trajet(arene, liste)
 
                 elif event.key == pygame.K_r:
-                    liste = rectangle(arene,40,20,10)
+                    liste = rectangle(arene,30,15,10)
                     afficheur.affiche_trajet(arene , liste)
 
                 elif event.key == pygame.K_p:
-                    for x in range(15):
+                    for x in range(10):
                         liste= arene.robot.autonome(arene)
                         afficheur.affiche_trajet(arene, liste)
 
