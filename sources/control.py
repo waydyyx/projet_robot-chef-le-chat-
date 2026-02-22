@@ -17,9 +17,9 @@ def rectangle(arene:Arene, longeur : int, hauteur : int, vitesse: int):
                 arene.robot.vitesse_g=g
                 arene.robot.vitesse_d=d
                 return liste_coordonnes
-            liste_coordonnes.append( arene.robot.avancer())
-        arene.robot.vitesse_d = -2*math.pi/8
-        arene.robot.vitesse_g = 2*math.pi/8
+            liste_coordonnes.append(arene.robot.avancer())
+        arene.robot.vitesse_d = -math.pi/2
+        arene.robot.vitesse_g = math.pi/2
         for i in range(25):
             if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
                 arene.robot.vitesse_g=g
@@ -34,8 +34,8 @@ def rectangle(arene:Arene, longeur : int, hauteur : int, vitesse: int):
                 arene.robot.vitesse_d=d
                 return liste_coordonnes
             liste_coordonnes.append(arene.robot.avancer())
-        arene.robot.vitesse_d = -2*math.pi/8
-        arene.robot.vitesse_g = 2*math.pi/8
+        arene.robot.vitesse_d = -math.pi/2
+        arene.robot.vitesse_g = math.pi/2
         for i in range(25):
             if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
                 arene.robot.vitesse_g=g
