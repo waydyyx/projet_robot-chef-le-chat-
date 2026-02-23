@@ -34,7 +34,7 @@ class Affichage :
     def affiche(self, arene : Arene):
         self.screen.fill((255, 255, 255))
         self.affiche_obstacle(arene)
-        img_robot_rotation = pygame.transform.rotate(self.img_robot, math.degrees(arene.robot.angle) + 180)
+        img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(arene.robot.angle) + 90)
         # print(f"{img_car_rotation}")
         rect = img_robot_rotation.get_rect(center=((arene.robot.px + self.img_robot_larg / 2),(arene.robot.py + self.img_robot_haut / 2)))
         self.screen.blit(img_robot_rotation, rect)
