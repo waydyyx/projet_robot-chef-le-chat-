@@ -4,14 +4,12 @@ import time
 from affichage import *
 
 class Robot:
-    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 0, py : int = 0):
+    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 50, py : int = 50):
         """
-		:param vitesse_d: valeur compris entre 0-10 inclus pour choisir la vitesse_droite du robot
+		:param vitesse_d: valeur compris entre 0-100 inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
-        :param vitesse_g: valeur compris entre 0-10 inclus pour choisir la vitesse_gauche du robot
+        :param vitesse_g: valeur compris entre 0-100 inclus pour choisir la vitesse_gauche du robot
 		:type vitesse: int
-		:param vitesse_rotation: valeur compris entre 0-10 inclus pour choisir la vitesse de rotation du robot
-		:type vitesse_rotation: int
 		:param angle: valeur compris entre 0-359 inclus pour choisir l'angle du depart du robot
 		:type angle: int
 		:param px: position x du robot
@@ -32,16 +30,16 @@ class Robot:
         # VITESSE_DROITE
         if (vitesse_d > 100):
             self.vitesse_d = 10
-        elif (vitesse_d < 0):
-            self.vitesse_d = 0
+        elif (vitesse_d < -100):
+            self.vitesse_d = -100
         else:
             self.vitesse_d = vitesse_d/10
 
         # VITESSE GAUCHE
         if (vitesse_g > 100):
             self.vitesse_g = 10
-        elif (vitesse_g < 0):
-            self.vitesse_g = 0
+        elif (vitesse_g < -100):
+            self.vitesse_g = -100
         else:
             self.vitesse_g = vitesse_g/10
 
@@ -68,22 +66,21 @@ class Robot:
     def avancer(self):
 
         v = (self.vitesse_d + self.vitesse_g) / 2
-        omega = (self.vitesse_d - self.vitesse_g) / self.L
+        omega = (self.vitesse_g - self.vitesse_d) / self.L
 
         # mise à jour position
         self.px += self.dx 
         self.py += self.dy 
 
         # calcul déplacement
-        self.dx = v * math.cos(self.angle+omega)
-        self.dy = v * math.sin(self.angle+omega)
+        self.dx = v * math.cos(self.angle + omega)
+        self.dy = v * math.sin(self.angle + omega)
 
 
 
         # mise à jour angle
         self.angle += omega 
         self.angle = self.angle % (2 * math.pi)
-
         return (self.px, self.py, self.angle)
 
 
@@ -97,6 +94,18 @@ class Robot:
         self.dx = v * math.cos(self.angle)
         self.dy = v * math.sin(self.angle)
 
+    def change_vitesse(self, vitesse_g, vitesse_d):
+        self.vitesse_g = vitesse_g
+        self.vitesse_d = vitesse_d
+        if (self.vitesse_g > 10):
+            self.vitesse_g = 10
+        elif (self.vitesse_g < -10):
+            self.vitesse_g = -10
+        if (self.vitesse_d > 10):
+            self.vitesse_d = 10
+        elif (self.vitesse_d < -10):
+            self.vitesse_d = -10
+        
 
     def reculer(self):
 
@@ -153,10 +162,10 @@ class Robot:
 
     def autonome(self, arene):
         liste_coordonnes = []
-        while not(arene.detection_obstacle()) :
-            if arene.collision_obstacle_avancer() or arene.est_dehors_avancer():
-                self.tourner_droite(120)
-                liste_coordonnes.append((self.px,self.py,self.angle))
+        while not(arene.detection_obstacle()):
+            if arene.collision_obstacle() or arene.collision_bord():
+                # self.tourner_droite(120)
+                # liste_coordonnes.append((self.px,self.py,self.angle))
                 return liste_coordonnes
             liste_coordonnes.append(self.avancer())
         #self.reculer()

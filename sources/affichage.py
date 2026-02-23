@@ -43,7 +43,9 @@ class Affichage :
         # pygame.draw.rect(screen, (255, 0, 0), rect)
         # pygame.gfxdraw.pixel(screen, int((arene.robot.px + arene.rob_larg / 2) + (arene.rob_larg / 4) * math.cos(arene.robot.angle)), int((robot.py + arene.rob_haut / 2) + (arene.rob_haut / 4) * math.sin(robot.angle)), (255, 0, 0))
         pygame.gfxdraw.pixel(self.screen,125,100,(0, 0, 255))
-        print(arene.detection_obstacle())
+        # print(arene.detection_obstacle())
+        # print(f"vit_g: {arene.robot.vitesse_g * 10}, vit_d: {arene.robot.vitesse_d * 10}")
+        # print(arene.detection_obstacle(self))
         pygame.display.flip()
 
     def affiche_obstacle(self, arene:Arene):
