@@ -4,7 +4,7 @@ import time
 from affichage import *
 
 class Robot:
-    def __init__(self, vitesse_g: int, vitesse_d: int, vitesse_rot :  int, angle : int, px : int = 0, py : int = 0):
+    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 0, py : int = 0):
         """
 		:param vitesse_d: valeur compris entre 0-10 inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
@@ -45,12 +45,8 @@ class Robot:
         else:
             self.vitesse_g = vitesse_g/10
 
-        if (vitesse_rot > 10):
-            self.vitesse_rot = 10
-        elif (vitesse_rot < 0):
-            self.vitesse_rot = 0
-        else:
-            self.vitesse_rot = vitesse_rot
+        
+        self.vitesse_rot = 6
 
         # ANGLE EN DEGREE
         if (angle > 359):
