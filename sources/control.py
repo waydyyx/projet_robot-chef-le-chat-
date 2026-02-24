@@ -113,7 +113,7 @@ def start(arene: Arene):
                 with arene.stop_lock:
                     arene.stop = 1
             arene.robot.avancer()
-        print(f"vit_g: {arene.robot.vitesse_g * 10}, vit_d: {arene.robot.vitesse_d * 10}")
+        print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d}")
         # afficheur.affiche(arene)
         clock.tick(60)
     pygame.quit()
