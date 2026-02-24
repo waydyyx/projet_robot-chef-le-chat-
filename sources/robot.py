@@ -57,8 +57,8 @@ class Robot:
         self.px = px  # position x
         self.py = py  # position y 
 
-        self.dx = 0
-        self.dy = 0
+        self.dx = (self.vitesse_d + self.vitesse_g) / 2 * math.cos(self.angle + (self.vitesse_g - self.vitesse_d) / self.L)
+        self.dy = (self.vitesse_d + self.vitesse_g) / 2 * math.sin(self.angle + (self.vitesse_g - self.vitesse_d) / self.L)
 
         self.vitesse = (self.vitesse_g+self.vitesse_d)/2
 
