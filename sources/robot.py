@@ -134,22 +134,55 @@ class Robot:
         self.dx = v * math.cos(self.angle)
         self.dy = v * math.sin(self.angle)
     
-    def rectangle( self, longeur : int, hauteur : int):
-            rob = Robot( self.vitesse , self.vitesse_rot, math.degrees(self.angle), self.px, self.py)
-            liste_coordonnes = []
-            for i in range (2):
-                for j in range(longeur) :
-                    liste_coordonnes.append( rob.avancer())
-                rob.tourner_droite(90)
-                for k in range (hauteur):
-                    liste_coordonnes.append(rob.avancer())
-                rob.tourner_droite(90)
-            liste_coordonnes.append((rob.px, rob.py, rob.angle))
-            return liste_coordonnes
+    def rectangle(self, arene: Arene, longeur: int, hauteur: int, vitesse: int):
+        d = arene.robot.vitesse_d 
+        g = arene.robot.vitesse_g
+        arene.robot.vitesse_d = vitesse
+        arene.robot.vitesse_g = vitesse
+        for i in range (2):
+            arene.robot.vitesse_d = vitesse
+            arene.robot.vitesse_g = vitesse
+            for j in range(longeur) :
+                if (arene.collision_bord() or arene.collision_obstacle()):
+                    arene.robot.vitesse_g = g 
+                    arene.robot.vitesse_d = d
+                    return
+                arene.robot.avancer()
+                time.sleep(1/60)
+            arene.robot.vitesse_d = -math.pi/2
+            arene.robot.vitesse_g = math.pi/2
+            for i in range(25):
+                if (arene.collision_bord() or arene.collision_obstacle()):
+                    arene.robot.vitesse_g = g
+                    arene.robot.vitesse_d = d
+                    return
+                arene.robot.avancer()
+                time.sleep(1/60)
+            arene.robot.vitesse_d = vitesse
+            arene.robot.vitesse_g = vitesse
+            for k in range (hauteur):
+                if (arene.collision_bord() or arene.collision_obstacle()):
+                    arene.robot.vitesse_g = g
+                    arene.robot.vitesse_d = d
+                    return
+                arene.robot.avancer()
+                time.sleep(1/60)
+            arene.robot.vitesse_d = -math.pi/2
+            arene.robot.vitesse_g = math.pi/2
+            for i in range(25):
+                if (arene.collision_bord() or arene.collision_obstacle()):
+                    arene.robot.vitesse_g = g
+                    arene.robot.vitesse_d = d
+                    return 
+                arene.robot.avancer()
+                time.sleep(1/60)
+        arene.robot.vitesse_g = g
+        arene.robot.vitesse_d = d
+        return 
+
+    def carre(self, arene: Arene,deplacement: int, vitesse: int):
+        return self.rectangle(arene, deplacement, deplacement, vitesse)
     
-    def carre(self,  deplacement : int):
-            
-        return self.rectangle( deplacement, deplacement)
             # rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
             # # print(f"self.angle : {math.degrees(self.angle)}")
             # liste_coordonnes = []
@@ -160,18 +193,17 @@ class Robot:
             # liste_coordonnes.append((rob.px, rob.py, rob.angle))
             # return liste_coordonnes
 
-    def autonome(self, arene):
-        liste_coordonnes = []
-        while not(arene.detection_obstacle()):
-            if arene.collision_obstacle() or arene.collision_bord():
-                # self.tourner_droite(120)
-                # liste_coordonnes.append((self.px,self.py,self.angle))
-                return liste_coordonnes
-            liste_coordonnes.append(self.avancer())
-        #self.reculer()
-        self.tourner_droite(90)
-        liste_coordonnes.append((self.px,self.py,self.angle))
-        return liste_coordonnes
+    def autonome(self, arene, nb_collision):
+        for x in range(nb_collision):
+            while not(arene.detection_obstacle()):
+                if arene.collision_obstacle() or arene.collision_bord():
+                    # self.tourner_droite(120)
+                    # liste_coordonnes.append((self.px,self.py,self.angle))
+                    return
+                self.avancer()
+                time.sleep(1/60)
+            self.tourner_droite(90)
+        return
     
     #def affiche_robot(self, screen):
     # 	for y in range(self.size):

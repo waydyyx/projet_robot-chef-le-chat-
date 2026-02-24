@@ -57,13 +57,13 @@ class Affichage :
                 for y in range (ob.py , ob.py + ob.haut):
                     pygame.gfxdraw.pixel(self.screen,x,y,(255, 0, 0))
 
-    def affiche_trajet(self, arene : Arene, liste_coordonnes: list) :
-        for i in range (len(liste_coordonnes)):
-            arene.robot.px = liste_coordonnes[i][0]
-            arene.robot.py = liste_coordonnes[i][1]
-            arene.robot.angle = liste_coordonnes[i][2]
-            # arene.robot.dx = math.cos(arene.robot.angle) * 5
-            # arene.robot.dy = math.sin(arene.robot.angle) * 5
-            self.affiche(arene)
-            time.sleep(1/100)
-        self.affiche(arene)
+    # def affiche_trajet(self, arene : Arene, liste_coordonnes: list) :
+    #     for i in range (len(liste_coordonnes)):
+    #         arene.robot.px = liste_coordonnes[i][0]
+    #         arene.robot.py = liste_coordonnes[i][1]
+    #         arene.robot.angle = liste_coordonnes[i][2]
+    #         # arene.robot.dx = math.cos(arene.robot.angle) * 5
+    #         # arene.robot.dy = math.sin(arene.robot.angle) * 5
+    #         self.affiche(arene)
+    #         time.sleep(1/100)
+    #     self.affiche(arene)

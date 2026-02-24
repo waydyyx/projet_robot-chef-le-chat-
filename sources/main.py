@@ -7,6 +7,7 @@ import pygame
 from affichage import Affichage
 import time
 import pygame
+
 if __name__ == "__main__":
 	assert (len(sys.argv) >= 3 and len(sys.argv) <= 6), "\n\nobligatoire (2): vitesse_gauche ([int] 0-100) | vitesse_droite ([int] 0-100)\noptionnel   (3): l'angle de depart ([int] 0-359) | position x ([int]) | position y ([int])"
 	if sys.argv[1][0] == '-':

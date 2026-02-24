@@ -70,7 +70,8 @@ class Arene:
             # gfxdraw.pixel(screen, int(self.robot.px + math.cos(-angle) * i + centre), int(self.robot.py + math.sin(-angle) * i + centre), (0, 255, 5))
             i += 1
         # print((i-25)*17/50)
-        return i < 50    
+        return i < 50
+    
     def collision_point(self,x,y):
         for obstacle in self.obstacles:
             if (x < obstacle.px + obstacle.larg) and (y < obstacle.py + obstacle.haut) and ( x > obstacle.px) and ( y > obstacle.py):
