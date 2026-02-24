@@ -6,9 +6,9 @@ from affichage import *
 class Robot:
     def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 50, py : int = 50):
         """
-		:param vitesse_d: valeur compris entre 0-10 inclus pour choisir la vitesse_droite du robot
+		:param vitesse_d: valeur compris entre (-10, 10) inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
-        :param vitesse_g: valeur compris entre 0-10 inclus pour choisir la vitesse_gauche du robot
+        :param vitesse_g: valeur compris entre (-10, 10) inclus pour choisir la vitesse_gauche du robot
 		:type vitesse: int
 		:param angle: valeur compris entre 0-359 inclus pour choisir l'angle du depart du robot
 		:type angle: int
@@ -198,6 +198,8 @@ class Robot:
             # return liste_coordonnes
 
     def autonome(self, arene, nb_collision):
+        with arene.robot_lock:
+            self.change_vitesse(4, 4)
         for x in range(nb_collision):
             while not(arene.detection_obstacle()):
                 if arene.collision_obstacle() or arene.collision_bord():

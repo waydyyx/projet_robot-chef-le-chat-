@@ -33,8 +33,8 @@ if __name__ == "__main__":
 		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
 	Thread(target=start, args=(arene,)).start()
+	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
 	afficheur.affiche(arene)
 	# start(arene)
 
