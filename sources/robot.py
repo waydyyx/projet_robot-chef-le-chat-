@@ -28,20 +28,20 @@ class Robot:
         self.dt = 0.1
 
         # VITESSE_DROITE
-        if (vitesse_d > 100):
+        if (vitesse_d > 10):
             self.vitesse_d = 10
-        elif (vitesse_d < -100):
+        elif (vitesse_d < -10):
             self.vitesse_d = -100
         else:
-            self.vitesse_d = vitesse_d/10
+            self.vitesse_d = vitesse_d
 
         # VITESSE GAUCHE
-        if (vitesse_g > 100):
+        if (vitesse_g > 10):
             self.vitesse_g = 10
-        elif (vitesse_g < -100):
+        elif (vitesse_g < -10):
             self.vitesse_g = -100
         else:
-            self.vitesse_g = vitesse_g/10
+            self.vitesse_g = vitesse_g
 
         
         self.vitesse_rot = 6
