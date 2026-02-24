@@ -88,11 +88,11 @@ def start(arene: Arene):
                             return 
                 if event.key == pygame.K_e:
                     arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d + 1)
-                elif event.key == pygame.K_d:
+                if event.key == pygame.K_d:
                     arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d - 1)        
-                elif event.key == pygame.K_a:
+                if event.key == pygame.K_a:
                     arene.robot.change_vitesse(arene.robot.vitesse_g + 1,  arene.robot.vitesse_d)
-                elif event.key == pygame.K_q:
+                if event.key == pygame.K_q:
                     arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d)
 
         pressed = pygame.key.get_pressed()
