@@ -95,6 +95,15 @@ def start(arene: Arene):
                 if event.key == pygame.K_q:
                     arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d)
 
+                if event.key == pygame.K_UP:
+                    arene.robot.change_vitesse(4, 4)
+                if event.key == pygame.K_RIGHT:
+                    arene.robot.change_vitesse(2, -2)
+                if event.key == pygame.K_DOWN:
+                    arene.robot.change_vitesse(-4, -4)
+                if event.key == pygame.K_LEFT:
+                    arene.robot.change_vitesse(-2, 2)
+
         pressed = pygame.key.get_pressed()
         if (pressed[pygame.K_ESCAPE]):
             with arene.stop_lock:
