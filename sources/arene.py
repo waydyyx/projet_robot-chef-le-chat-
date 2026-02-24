@@ -2,6 +2,7 @@ from obstacle import Obstacle
 import random
 import math
 from pygame import gfxdraw
+from multiprocessing import RLock
 
 class Arene:
     def __init__(self, larg : int, haut : int, robot : "Robot"):
@@ -9,7 +10,9 @@ class Arene:
         self.haut = haut
         self.robot = robot
         self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
-    
+        self.robot_lock = RLock()
+        self.stop = 0
+        self.stop_lock = RLock()
 
     # def est_dehors_avancer(self):
     #     if (self.robot.dx < 0 or self.robot.dx > self.larg - self.robot.size or self.robot.dy < 0 or self.robot.dy > self.haut - self.robot.size):
