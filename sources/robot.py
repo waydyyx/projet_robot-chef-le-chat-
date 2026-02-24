@@ -6,9 +6,9 @@ from affichage import *
 class Robot:
     def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 50, py : int = 50):
         """
-		:param vitesse_d: valeur compris entre 0-100 inclus pour choisir la vitesse_droite du robot
+		:param vitesse_d: valeur compris entre 0-10 inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
-        :param vitesse_g: valeur compris entre 0-100 inclus pour choisir la vitesse_gauche du robot
+        :param vitesse_g: valeur compris entre 0-10 inclus pour choisir la vitesse_gauche du robot
 		:type vitesse: int
 		:param angle: valeur compris entre 0-359 inclus pour choisir l'angle du depart du robot
 		:type angle: int
@@ -31,7 +31,7 @@ class Robot:
         if (vitesse_d > 10):
             self.vitesse_d = 10
         elif (vitesse_d < -10):
-            self.vitesse_d = -100
+            self.vitesse_d = -10
         else:
             self.vitesse_d = vitesse_d
 
@@ -39,7 +39,7 @@ class Robot:
         if (vitesse_g > 10):
             self.vitesse_g = 10
         elif (vitesse_g < -10):
-            self.vitesse_g = -100
+            self.vitesse_g = -10
         else:
             self.vitesse_g = vitesse_g
 
@@ -147,7 +147,8 @@ class Robot:
                     arene.robot.vitesse_g = g 
                     arene.robot.vitesse_d = d
                     return
-                arene.robot.avancer()
+                with arene.robot_lock:
+                    arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = -math.pi/2
             arene.robot.vitesse_g = math.pi/2
@@ -156,7 +157,8 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return
-                arene.robot.avancer()
+                with arene.robot_lock:
+                    arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = vitesse
             arene.robot.vitesse_g = vitesse
@@ -165,7 +167,8 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return
-                arene.robot.avancer()
+                with arene.robot_lock:
+                    arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = -math.pi/2
             arene.robot.vitesse_g = math.pi/2
@@ -174,7 +177,8 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return 
-                arene.robot.avancer()
+                with arene.robot_lock:
+                    arene.robot.avancer()
                 time.sleep(1/60)
         arene.robot.vitesse_g = g
         arene.robot.vitesse_d = d
@@ -200,7 +204,8 @@ class Robot:
                     # self.tourner_droite(120)
                     # liste_coordonnes.append((self.px,self.py,self.angle))
                     return
-                self.avancer()
+                with arene.robot_lock:
+                    self.avancer()
                 time.sleep(1/60)
             self.tourner_droite(90)
         return

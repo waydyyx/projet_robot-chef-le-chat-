@@ -63,7 +63,8 @@ def start(arene: Arene):
             if (arene.collision_bord() or arene.collision_obstacle()):
                 with arene.stop_lock:
                     arene.stop = 1
-            arene.robot.avancer()
+            with arene.robot_lock:
+                arene.robot.avancer()
         print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d}")
         # afficheur.affiche(arene)
         clock.tick(60)
