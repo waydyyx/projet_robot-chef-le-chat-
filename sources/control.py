@@ -1,100 +1,76 @@
-from affichage import *
+from arene import Arene
+import math
+import pygame
+import time
 
-def rectangle(arene:Arene, longeur : int, hauteur : int, vitesse: int):
-    d=arene.robot.vitesse_d 
-    g=arene.robot.vitesse_g
-    arene.robot.vitesse_d=vitesse
-    arene.robot.vitesse_g=vitesse
-    liste_coordonnes = []
-    for i in range (2):
-        arene.robot.vitesse_d=vitesse
-        arene.robot.vitesse_g=vitesse
-        for j in range(longeur) :
-            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
-                arene.robot.vitesse_g=g
-                arene.robot.vitesse_d=d
-                return liste_coordonnes
-            liste_coordonnes.append( arene.robot.avancer())
-        arene.robot.vitesse_d = -2*math.pi/8
-        arene.robot.vitesse_g = 2*math.pi/8
-        for i in range(25):
-            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
-                arene.robot.vitesse_g=g
-                arene.robot.vitesse_d=d
-                return liste_coordonnes
-            liste_coordonnes.append( arene.robot.avancer())
-        arene.robot.vitesse_d=vitesse
-        arene.robot.vitesse_g=vitesse
-        for k in range (hauteur):
-            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
-                arene.robot.vitesse_g=g
-                arene.robot.vitesse_d=d
-                return liste_coordonnes
-            liste_coordonnes.append(arene.robot.avancer())
-        arene.robot.vitesse_d = -2*math.pi/8
-        arene.robot.vitesse_g = 2*math.pi/8
-        for i in range(25):
-            if (arene.est_dehors_avancer() or arene.collision_obstacle_avancer()):
-                arene.robot.vitesse_g=g
-                arene.robot.vitesse_d=d
-                return liste_coordonnes
-            liste_coordonnes.append( arene.robot.avancer())
-    liste_coordonnes.append((arene.robot.px, arene.robot.py, arene.robot.angle))
-    arene.robot.vitesse_g=g
-    arene.robot.vitesse_d=d
-    return liste_coordonnes
-
-def carre(arene:Arene,deplacement : int, vitesse:int):
-    return rectangle(arene, deplacement, deplacement, vitesse)
-
-
-def start(arene:Arene):
+def start(arene: Arene):
     pygame.init()
-    quit = 0
-    afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
+    # afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
     clock = pygame.time.Clock()
-    # print(arene.collision_point(90,90))
-
     autonome = None
-    while not(quit):	
+    while not(arene.stop):	
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit = 1
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
-                    liste = carre(arene,25,10)
-                    # print(liste)
-                    afficheur.affiche_trajet(arene, liste)
+                    arene.robot.carre(arene, 7, 10)
+                    if (arene.collision_bord() or arene.collision_obstacle()):
+                        with arene.stop_lock:
+                            arene.stop = 1
+                        return
 
                 elif event.key == pygame.K_r:
-                    liste = rectangle(arene,30,15,10)
-                    afficheur.affiche_trajet(arene , liste)
+                    arene.robot.rectangle(arene, 15, 7, 10)
+                    if (arene.collision_bord() or arene.collision_obstacle()):
+                        with arene.stop_lock:
+                            arene.stop = 1
+                        return
 
                 elif event.key == pygame.K_p:
-                    for x in range(10):
-                        liste= arene.robot.autonome(arene)
-                        afficheur.affiche_trajet(arene, liste)
+                    arene.robot.autonome(arene, 5)
+                    if (arene.collision_bord() or arene.collision_obstacle()):
+                        with arene.stop_lock:
+                            arene.stop = 1
+                        return 
+                if event.key == pygame.K_e:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d + 1)
+                if event.key == pygame.K_d:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d - 1)        
+                if event.key == pygame.K_a:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(arene.robot.vitesse_g + 1,  arene.robot.vitesse_d)
+                if event.key == pygame.K_q:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d)
+
+                if event.key == pygame.K_UP:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(4, 4)
+                if event.key == pygame.K_RIGHT:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(2, -2)
+                if event.key == pygame.K_DOWN:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(-4, -4)
+                if event.key == pygame.K_LEFT:
+                    with arene.robot_lock:
+                        arene.robot.change_vitesse(-2, 2)
 
         pressed = pygame.key.get_pressed()
         if (pressed[pygame.K_ESCAPE]):
-            quit = 1
-        if ((pressed[pygame.K_UP] or pressed[pygame.K_w] or pressed[pygame.K_z]) and not(arene.est_dehors_avancer() or arene.collision_obstacle_avancer())):
-            arene.robot.avancer()
-        if (pressed[pygame.K_RIGHT] or pressed[pygame.K_d]):
-            arene.robot.tourner_droite()
-        if ((pressed[pygame.K_DOWN] or pressed[pygame.K_s]) and not(arene.est_dehors_reculer() or arene.collision_obstacle_reculer())):
-            arene.robot.reculer()
-        if (pressed[pygame.K_LEFT] or pressed[pygame.K_a] or pressed[pygame.K_q]):
-            arene.robot.tourner_gauche()
-
-        # if ( pressed[pygame.K_c]):
-        # 	arene.robot.carre(10)
-        # 	# arene.robot.tourner_droite(90)
-            # print("c")
-
-
-
-        afficheur.affiche(arene)
-        clock.tick(200)
+            with arene.stop_lock:
+                arene.stop = 1
+        if (pressed[pygame.K_w] or pressed[pygame.K_z]):
+            if (arene.collision_bord() or arene.collision_obstacle()):
+                with arene.stop_lock:
+                    arene.stop = 1
+            with arene.robot_lock:
+                arene.robot.avancer()
+        print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {arene.robot.px} py: {arene.robot.py} obstacle: {arene.detection_obstacle()}")
+        # afficheur.affiche(arene)
+        clock.tick(60)
     pygame.quit()
