@@ -84,15 +84,15 @@ class Robot:
         return (self.px, self.py, self.angle)
 
 
-    def tourner_droite(self, angle : int = 0):
-        if (angle!=0):
-            self.angle += math.radians(angle)
-        else:
-            self.angle += (math.pi / (110 - self.vitesse_rot))
-        self.angle = self.angle % (2 * math.pi)
-        v = (self.vitesse_d + self.vitesse_g) / 2
-        self.dx = v * math.cos(self.angle)
-        self.dy = v * math.sin(self.angle)
+    #def tourner_droite(self, angle : int = 0):
+    #    if (angle!=0):
+    #        self.angle += math.radians(angle)
+    #    else:
+    #        self.angle += (math.pi / (110 - self.vitesse_rot))
+    #    self.angle = self.angle % (2 * math.pi)
+    #    v = (self.vitesse_d + self.vitesse_g) / 2
+    #    self.dx = v * math.cos(self.angle)
+    #    self.dy = v * math.sin(self.angle)
 
     def change_vitesse(self, vitesse_g, vitesse_d):
         self.vitesse_g = vitesse_g
@@ -105,35 +105,18 @@ class Robot:
             self.vitesse_d = 10
         elif (self.vitesse_d < -10):
             self.vitesse_d = -10
-        
-
-    def reculer(self):
-
-        v = -(self.vitesse_d + self.vitesse_g) / 2
-        omega = (self.vitesse_d - self.vitesse_g) / self.L
-
-        self.dx = v * math.cos(self.angle)
-        self.dy = v * math.sin(self.angle)
-
-        self.px += self.dx * self.dt *10
-        self.py += self.dy * self.dt *10
-
-        self.angle += omega * self.dt
-        self.angle = self.angle % (2 * math.pi)
-
-        return (self.px, self.py, self.angle)
 
 
-    def tourner_gauche(self, angle : int = 0):
-        if (angle!=0):
-            self.angle -= math.radians(angle)
-        else:
-            self.angle -= (math.pi / (110 - self.vitesse_rot))
-        self.angle = self.angle % (2 * math.pi)
-        v = (self.vitesse_d + self.vitesse_g) / 2
-        self.dx = v * math.cos(self.angle)
-        self.dy = v * math.sin(self.angle)
-    
+    #def tourner_gauche(self, angle : int = 0):
+    #    if (angle!=0):
+    #        self.angle -= math.radians(angle)
+    #    else:
+    #        self.angle -= (math.pi / (110 - self.vitesse_rot))
+    #    self.angle = self.angle % (2 * math.pi)
+    #    v = (self.vitesse_d + self.vitesse_g) / 2
+    #    self.dx = v * math.cos(self.angle)
+    #    self.dy = v * math.sin(self.angle)
+
     def rectangle(self, arene: Arene, longeur: int, hauteur: int, vitesse: int):
         d = arene.robot.vitesse_d 
         g = arene.robot.vitesse_g
@@ -187,15 +170,6 @@ class Robot:
     def carre(self, arene: Arene,deplacement: int, vitesse: int):
         return self.rectangle(arene, deplacement, deplacement, vitesse)
     
-            # rob = Robot(self.vitesse, self.vitesse_rotation, math.degrees(self.angle), self.px, self.py)
-            # # print(f"self.angle : {math.degrees(self.angle)}")
-            # liste_coordonnes = []
-            # for i in range (4):
-            #     for j in range (deplacement):
-            #         liste_coordonnes.append(rob.avancer())
-            #     rob.tourner_droite(90)
-            # liste_coordonnes.append((rob.px, rob.py, rob.angle))
-            # return liste_coordonnes
 
     def autonome(self, arene, nb_collision):
         with arene.robot_lock:
@@ -212,17 +186,5 @@ class Robot:
             self.tourner_droite(90)
         return
     
-    #def affiche_robot(self, screen):
-    # 	for y in range(self.size):
-    # 		for x in range(self.size):
-    # 			pygame.gfxdraw.pixel(screen, int(self.px + x), int(self.py + y), (255, 0, 0))
 
-    # def affiche_direction(self, screen):
-    # 	centre = self.size / 2
-    # 	length, height = screen.get_size()
-    # 	i = 0
-    # 	# while (x + math.cos(self.angle) * i + centre < length and x + math.cos(self.angle) * i + centre >= 0 and y + math.sin(self.angle) * i + centre < height and y + math.sin(self.angle)* i + centre >= 0):
-    # 	while (i < self.size * 5):
-    # 		pygame.gfxdraw.pixel(screen, int(self.px + math.cos(self.angle) * i + centre), int(self.py + math.sin(self.angle) * i + centre), (0, 255, 5))
-    # 		i += 1
     

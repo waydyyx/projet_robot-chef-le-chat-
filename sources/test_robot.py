@@ -16,11 +16,6 @@ class test_robot(unittest.TestCase):
         self.assertEqual(self.robot.angle,(angle+(self.robot.vitesse_g - self.robot.vitesse_d) / self.robot.L)% (2 * math.pi))
 
 
-
-    #def test_tourner_droite(self):
-    #    self.robot.tourner_droite(90)
-    #    angle_rechercher = math.pi/2
-
     def test_change_vitesse(self):
         self.robot.change_vitesse(5, -3)
         self.assertEqual(self.robot.vitesse_g, 5)

@@ -19,16 +19,6 @@ class Arene:
         self.robot_lock = RLock()
         self.stop = 0
         self.stop_lock = RLock()
-
-    # def est_dehors_avancer(self):
-    #     if (self.robot.dx < 0 or self.robot.dx > self.larg - self.robot.size or self.robot.dy < 0 or self.robot.dy > self.haut - self.robot.size):
-    #         return (1)
-    #     return (0)
-	
-    # def est_dehors_reculer(self):
-    #     if (self.robot.dx < 0 or self.robot.dx > self.larg - self.robot.size or self.robot.dy < 0 or self.robot.dy > self.haut - self.robot.size):
-    #         return (1)
-    #     return (0)
     
     def collision_bord(self):
         #avancer
@@ -36,12 +26,7 @@ class Arene:
             return (1)
         return (0)
     
-    
-    # def est_dehors_reculer(self):
-    #     if (self.robot.px - self.robot.dx < 0 or self.robot.px - self.robot.dx > self.larg - self.robot.size or self.robot.py - self.robot.dy < 0 or self.robot.py - self.robot.dy > self.haut - self.robot.size):
-    #         return (1)
-    #     return (0)
-    
+
     def collision_obstacle(self):
         """test la collision sur x
         test la collision sur y 
@@ -52,15 +37,6 @@ class Arene:
                 return True
         return False 
     
-    # def collision_obstacle_reculer(self):
-    #     """test la collision sur x
-    #     test la collision sur y 
-    #     si les deux soon vraie return true sinon false 
-    #     robot ,obstacle -> bool""" 
-    #     for obstacle in self.obstacles:
-    #         if(self.robot.px + self.robot.size - self.robot.dx > obstacle.px and self.robot.px - self.robot.dx < obstacle.px + obstacle.larg and self.robot.py + self.robot.size - self.robot.dy > obstacle.py and self.robot.py - self.robot.dy < obstacle.py + obstacle.haut) :
-    #             return True
-    #     return False 
     
     def detection_obstacle(self): # prend un screen en parametre si on veut afficher
         """
