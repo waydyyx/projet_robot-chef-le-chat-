@@ -1,8 +1,14 @@
-from obstacle import Obstacle
 import random
 import math
 from pygame import gfxdraw
 from multiprocessing import RLock
+
+class Obstacle:
+    def __init__(self, px:int, py:int, larg:int, haut:int):
+        self.px=px
+        self.py=py
+        self.larg=larg
+        self.haut=haut
 
 class Arene:
     def __init__(self, larg : int, haut : int, robot : "Robot"):

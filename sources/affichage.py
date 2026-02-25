@@ -1,6 +1,6 @@
 import pygame
 from arene import Arene
-from obstacle import Obstacle
+from arene import Obstacle
 import time 
 from pygame import gfxdraw
 import math
