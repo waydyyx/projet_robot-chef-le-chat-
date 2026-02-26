@@ -1,10 +1,9 @@
 from robot import Robot
-from control import start
 from arene import Arene
 from threading import Thread
 import sys
 import pygame
-from affichage import Affichage
+from affichage import Affichage, start
 import time
 import pygame
 
