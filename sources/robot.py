@@ -18,53 +18,20 @@ class Robot:
 		:type py: int 
 		"""
 
-        # TAILLE ROBOT
-        self.size = 50
-
-        # distance entre les rous
-        self.L =  self.size 
-
-        # pas de temps
-        self.dt = 0.1
-
-        # VITESSE_DROITE
-        if (vitesse_d > 10):
-            self.vitesse_d = 10
-        elif (vitesse_d < -10):
-            self.vitesse_d = -10
-        else:
-            self.vitesse_d = vitesse_d
-
-        # VITESSE GAUCHE
-        if (vitesse_g > 10):
-            self.vitesse_g = 10
-        elif (vitesse_g < -10):
-            self.vitesse_g = -10
-        else:
-            self.vitesse_g = vitesse_g
-
-        
-        self.vitesse_rot = 6
-
-        # ANGLE EN DEGREE
-        if (angle > 359):
-            self.angle = math.radians(359)
-        elif (angle < 0):
-            self.angle = 0
-        else:		
-            self.angle = math.radians(angle)
-
+        self.size = 50 # TAILLE ROBOT
+        self.L =  self.size # distance entre les rous
+        self.dt = 0.1 # pas de temps
+        self.vitesse_d = 10 if (vitesse_d > 10) else -10 if (vitesse_d < -10) else vitesse_d # VITESSE_DROITE
+        self.vitesse_g = 10 if (vitesse_g > 10) else -10 if (vitesse_g < -10) else vitesse_g # VITESSE GAUCHE
+        self.vitesse_rot = 6 # VITESSE ROTATION
+        self.angle = math.radians(359) if (angle > 359) else 0 if (angle < 0) else angle # ANGLE EN DEGREE
         self.px = px  # position x
         self.py = py  # position y 
-
-        self.dx = (self.vitesse_d + self.vitesse_g) / 2 * math.cos(self.angle + (self.vitesse_g - self.vitesse_d) / self.L)
-        self.dy = (self.vitesse_d + self.vitesse_g) / 2 * math.sin(self.angle + (self.vitesse_g - self.vitesse_d) / self.L)
-
-        self.vitesse = (self.vitesse_g+self.vitesse_d)/2
-
+        self.dx = (self.vitesse_d + self.vitesse_g) / 2 * math.cos(self.angle + (self.vitesse_g - self.vitesse_d) / self.L) # unite de deplacement en x
+        self.dy = (self.vitesse_d + self.vitesse_g) / 2 * math.sin(self.angle + (self.vitesse_g - self.vitesse_d) / self.L) # unite de deplacement en y
+        self.vitesse = (self.vitesse_g+self.vitesse_d) / 2
 
     def avancer(self):
-
         v = (self.vitesse_d + self.vitesse_g) / 2
         omega = (self.vitesse_g - self.vitesse_d) / self.L
 
@@ -76,23 +43,10 @@ class Robot:
         self.dx = v * math.cos(self.angle + omega)
         self.dy = v * math.sin(self.angle + omega)
 
-
-
         # mise à jour angle
         self.angle += omega 
         self.angle = self.angle % (2 * math.pi)
         return (self.px, self.py, self.angle)
-
-
-    #def tourner_droite(self, angle : int = 0):
-    #    if (angle!=0):
-    #        self.angle += math.radians(angle)
-    #    else:
-    #        self.angle += (math.pi / (110 - self.vitesse_rot))
-    #    self.angle = self.angle % (2 * math.pi)
-    #    v = (self.vitesse_d + self.vitesse_g) / 2
-    #    self.dx = v * math.cos(self.angle)
-    #    self.dy = v * math.sin(self.angle)
 
     def change_vitesse(self, vitesse_g, vitesse_d):
         self.vitesse_g = vitesse_g
@@ -105,17 +59,6 @@ class Robot:
             self.vitesse_d = 10
         elif (self.vitesse_d < -10):
             self.vitesse_d = -10
-
-
-    #def tourner_gauche(self, angle : int = 0):
-    #    if (angle!=0):
-    #        self.angle -= math.radians(angle)
-    #    else:
-    #        self.angle -= (math.pi / (110 - self.vitesse_rot))
-    #    self.angle = self.angle % (2 * math.pi)
-    #    v = (self.vitesse_d + self.vitesse_g) / 2
-    #    self.dx = v * math.cos(self.angle)
-    #    self.dy = v * math.sin(self.angle)
 
     def rectangle(self, arene: Arene, longeur: int, hauteur: int, vitesse: int):
         d = arene.robot.vitesse_d 
@@ -170,20 +113,34 @@ class Robot:
     def carre(self, arene: Arene,deplacement: int, vitesse: int):
         return self.rectangle(arene, deplacement, deplacement, vitesse)
     
+    def tourner_droite(self, angle: int):
+        temp_g = self.vitesse_g
+        temp_d = self.vitesse_d
+        self.change_vitesse(math.pi/2, -math.pi/2)
+        for x in range((25 * angle) // 90):
+            time.sleep(1/60)
+            self.avancer()
+        self.vitesse_g = temp_g
+        self.vitesse_d = temp_d
+
 
     def autonome(self, arene, nb_collision):
         with arene.robot_lock:
+            temp_g = self.vitesse_g
+            temp_d = self.vitesse_d
             self.change_vitesse(4, 4)
         for x in range(nb_collision):
             while not(arene.detection_obstacle()):
                 if arene.collision_obstacle() or arene.collision_bord():
-                    # self.tourner_droite(120)
-                    # liste_coordonnes.append((self.px,self.py,self.angle))
                     return
                 with arene.robot_lock:
                     self.avancer()
                 time.sleep(1/60)
-            self.tourner_droite(90)
+            with arene.robot_lock:
+                self.tourner_droite(180)
+                self.change_vitesse(4, 4)
+        self.vitesse_g = temp_g
+        self.vitesse_d = temp_d
         return
     
 

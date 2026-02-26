@@ -47,7 +47,7 @@ def start(arene: Arene):
     while not(arene.stop):	
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit = 1
+                arene.stop = 1
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
@@ -65,7 +65,7 @@ def start(arene: Arene):
                         return
 
                 elif event.key == pygame.K_p:
-                    arene.robot.autonome(arene, 5)
+                    arene.robot.autonome(arene, 2)
                     if (arene.collision_bord() or arene.collision_obstacle()):
                         with arene.stop_lock:
                             arene.stop = 1
@@ -95,7 +95,7 @@ def start(arene: Arene):
                 if event.key == pygame.K_LEFT:
                     with arene.robot_lock:
                         arene.robot.change_vitesse(-2, 2)
-                        
+
         pressed = pygame.key.get_pressed()
         if (pressed[pygame.K_ESCAPE]):
             with arene.stop_lock:
