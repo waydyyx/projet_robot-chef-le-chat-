@@ -17,7 +17,7 @@ class Affichage :
             self.screen.fill((255, 255, 255))
             self.affiche_obstacle(arene)
             # print(f"{img_car_rotation}")
-            with arene.robot_lock:
+            with arene.robot.lock:
                 img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(arene.robot.angle) + 90)
                 rect = img_robot_rotation.get_rect(center=((arene.robot.px + self.img_robot_larg / 2),(arene.robot.py + self.img_robot_haut / 2)))
             self.screen.blit(img_robot_rotation, rect)
@@ -37,7 +37,7 @@ class Affichage :
         for ob in arene.obstacles:
             for x in range (ob.px , ob.px + ob.larg):
                 for y in range (ob.py , ob.py + ob.haut):
-                    pygame.gfxdraw.pixel(self.screen,x,y,(255, 0, 0))
+                    pygame.gfxdraw.pixel(self.screen,x,y,(1, 1, 1))
 
 def start(arene: Arene):
     pygame.init()
@@ -46,65 +46,55 @@ def start(arene: Arene):
     autonome = None
     while not(arene.stop):	
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                arene.stop = 1
-            
+            # on arrete le programme en cas de collision + arene.stop est mis a 1 pour que le thread s'arrete.
+            if (event.type == pygame.QUIT or arene.collision_bord() or arene.collision_obstacle()):
+                with arene.stop_lock:
+                    arene.stop = 1
+
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    with arene.stop_lock:
+                        arene.stop = 1
+
+            # Strategies
                 if event.key == pygame.K_c:
                     arene.robot.carre(arene, 7, 10)
-                    if (arene.collision_bord() or arene.collision_obstacle()):
-                        with arene.stop_lock:
-                            arene.stop = 1
-                        return
-
                 elif event.key == pygame.K_r:
                     arene.robot.rectangle(arene, 15, 7, 10)
-                    if (arene.collision_bord() or arene.collision_obstacle()):
-                        with arene.stop_lock:
-                            arene.stop = 1
-                        return
-
                 elif event.key == pygame.K_p:
                     arene.robot.autonome(arene, 2)
-                    if (arene.collision_bord() or arene.collision_obstacle()):
-                        with arene.stop_lock:
-                            arene.stop = 1
-                        return 
+
+            # Changement directe de la vitesse des roues
                 if event.key == pygame.K_e:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d + 1)
                 if event.key == pygame.K_d:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d - 1)        
                 if event.key == pygame.K_a:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(arene.robot.vitesse_g + 1,  arene.robot.vitesse_d)
                 if event.key == pygame.K_q:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d)
 
+            # Preset sur les fleches directionnelles
                 if event.key == pygame.K_UP:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(4, 4)
                 if event.key == pygame.K_RIGHT:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(2, -2)
                 if event.key == pygame.K_DOWN:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(-4, -4)
                 if event.key == pygame.K_LEFT:
-                    with arene.robot_lock:
+                    with arene.robot.lock:
                         arene.robot.change_vitesse(-2, 2)
 
         pressed = pygame.key.get_pressed()
-        if (pressed[pygame.K_ESCAPE]):
-            with arene.stop_lock:
-                arene.stop = 1
         if (pressed[pygame.K_w] or pressed[pygame.K_z]):
-            if (arene.collision_bord() or arene.collision_obstacle()):
-                with arene.stop_lock:
-                    arene.stop = 1
-            with arene.robot_lock:
+            with arene.robot.lock:
                 arene.robot.avancer()
         print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {arene.robot.px} py: {arene.robot.py} obstacle: {arene.detection_obstacle()}")
         clock.tick(60)

@@ -2,6 +2,8 @@ import math
 import pygame
 import time 
 from arene import Arene
+from multiprocessing import RLock
+
 
 class Robot:
     def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 270, px : int = 50, py : int = 50):
@@ -30,6 +32,7 @@ class Robot:
         self.dx = (self.vitesse_d + self.vitesse_g) / 2 * math.cos(self.angle + (self.vitesse_g - self.vitesse_d) / self.L) # unite de deplacement en x
         self.dy = (self.vitesse_d + self.vitesse_g) / 2 * math.sin(self.angle + (self.vitesse_g - self.vitesse_d) / self.L) # unite de deplacement en y
         self.vitesse = (self.vitesse_g+self.vitesse_d) / 2
+        self.lock = RLock()
 
     def avancer(self):
         v = (self.vitesse_d + self.vitesse_g) / 2
@@ -73,7 +76,7 @@ class Robot:
                     arene.robot.vitesse_g = g 
                     arene.robot.vitesse_d = d
                     return
-                with arene.robot_lock:
+                with self.lock: # arene.robot.lock
                     arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = -math.pi/2
@@ -83,7 +86,7 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return
-                with arene.robot_lock:
+                with self.lock: # arene.robot.lock
                     arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = vitesse
@@ -93,7 +96,7 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return
-                with arene.robot_lock:
+                with self.lock: # arene.robot.lock
                     arene.robot.avancer()
                 time.sleep(1/60)
             arene.robot.vitesse_d = -math.pi/2
@@ -103,7 +106,7 @@ class Robot:
                     arene.robot.vitesse_g = g
                     arene.robot.vitesse_d = d
                     return 
-                with arene.robot_lock:
+                with self.lock: # arene.robot.lock
                     arene.robot.avancer()
                 time.sleep(1/60)
         arene.robot.vitesse_g = g
@@ -114,18 +117,15 @@ class Robot:
         return self.rectangle(arene, deplacement, deplacement, vitesse)
     
     def tourner_droite(self, angle: int):
-        temp_g = self.vitesse_g
-        temp_d = self.vitesse_d
-        self.change_vitesse(math.pi/2, -math.pi/2)
-        for x in range((25 * angle) // 90):
+        with self.lock: # arene.robot.lock
+            self.change_vitesse(math.pi/2, -math.pi/2)
+        for x in range(round((25 * angle) / 90)):
             time.sleep(1/60)
             self.avancer()
-        self.vitesse_g = temp_g
-        self.vitesse_d = temp_d
 
 
     def autonome(self, arene, nb_collision):
-        with arene.robot_lock:
+        with self.lock: # arene.robot.lock
             temp_g = self.vitesse_g
             temp_d = self.vitesse_d
             self.change_vitesse(4, 4)
@@ -133,12 +133,11 @@ class Robot:
             while not(arene.detection_obstacle()):
                 if arene.collision_obstacle() or arene.collision_bord():
                     return
-                with arene.robot_lock:
+                with self.lock: # arene.robot.lock
+                    time.sleep(1/60)
                     self.avancer()
-                time.sleep(1/60)
-            with arene.robot_lock:
-                self.tourner_droite(180)
-                self.change_vitesse(4, 4)
+            self.tourner_droite(90) # on fait touner de 90 degre vers la droite lorsquon sort de la boucle de la non detection d'obstacle
+            self.change_vitesse(4, 4) # on remet la vitesse des roues a 4,4 car on les as change lorsquon a voulu tourner de 90 degre vers la droite
         self.vitesse_g = temp_g
         self.vitesse_d = temp_d
         return
