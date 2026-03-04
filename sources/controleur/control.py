@@ -11,7 +11,6 @@ from sources.strategie.autonome import autonome
 
 def start(arene: Arene):
     pygame.init()
-    # afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
     clock = pygame.time.Clock()
     while not(arene.stop):	
         for event in pygame.event.get():
@@ -68,6 +67,5 @@ def start(arene: Arene):
             if (arene.collision_bord() or arene.collision_obstacle()):
                 with arene.stop_lock:
                     arene.stop = 1
-        print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {arene.robot.px} py: {arene.robot.py} obstacle: {arene.detection_obstacle()}")
         clock.tick(60)
     pygame.quit()    
