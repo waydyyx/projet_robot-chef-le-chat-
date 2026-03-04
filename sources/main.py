@@ -1,9 +1,10 @@
-from robot import Robot
-from arene import Arene
+from sources.modele.robot import Robot
+from sources.modele.arene import Arene
 from threading import Thread
 import sys
 import pygame
-from affichage import Affichage, start
+from sources.view.affichage import Affichage
+from sources.controleur.control import start
 import time
 import pygame
 

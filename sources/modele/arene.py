@@ -1,6 +1,6 @@
 import random
+from sources.modele.robot import Robot
 import math
-from pygame import gfxdraw
 from multiprocessing import RLock
 
 class Obstacle:
@@ -49,7 +49,7 @@ class Arene:
             # gfxdraw.pixel(screen, int(self.robot.px + math.cos(-angle) * i + centre), int(self.robot.py + math.sin(-angle) * i + centre), (0, 255, 5))
             i += 1
         print(f"{round(((i-25)*17/50) / 100, 2)}m")
-        return i < 50
+        return i < 100
     
     def collision_point(self,x,y):
         for obstacle in self.obstacles:
