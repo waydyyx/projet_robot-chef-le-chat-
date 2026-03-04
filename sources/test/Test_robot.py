@@ -1,5 +1,5 @@
 import unittest
-from robot import Robot
+from sources.modele.robot import Robot
 import math
 
 class TestRobot(unittest.TestCase):
