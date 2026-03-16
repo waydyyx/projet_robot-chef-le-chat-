@@ -7,6 +7,7 @@ from sources.view.affichage import Affichage
 from sources.controleur.control import start
 import time
 import pygame
+from sources.modele.update_modele import update_mod
 
 if __name__ == "__main__":
 	assert (len(sys.argv) >= 3 and len(sys.argv) <= 6), "\n\nobligatoire (2): vitesse_gauche ([int] 0-100) | vitesse_droite ([int] 0-100)\noptionnel   (3): l'angle de depart ([int] 0-359) | position x ([int]) | position y ([int])"
@@ -34,6 +35,8 @@ if __name__ == "__main__":
 	Thread(target=start, args=(arene,)).start()
 	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
 	afficheur.affiche(arene)
+	Thread(target=update_mod,args=(arene,)).start()
+	# start(arene)
 
 
 
