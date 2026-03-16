@@ -64,7 +64,6 @@ class Robot:
             self.vitesse_d = -10
 
 
-
     def tourner_droite(self, angle: int):
         with self.lock: # arene.robot.lock
             self.change_vitesse(math.pi/2, -math.pi/2)
@@ -72,5 +71,12 @@ class Robot:
             time.sleep(1/60)
             self.avancer()
 
-
-    
+    def strat_avancer(self, distance:int, vitesse:int):
+        vd=self.vitesse_d
+        vg=self.vitesse_g
+        d=(distance*2)//5
+        self.change_vitesse(vitesse,vitesse)
+        for i in range (d):
+            self.avancer()
+            time.sleep(1/60)
+        self.change_vitesse(vd,vg)
