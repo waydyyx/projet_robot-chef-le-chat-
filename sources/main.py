@@ -2,9 +2,7 @@ from sources.modele.robot import Robot
 from sources.modele.arene import Arene
 from threading import Thread
 import sys
-import pygame
 from sources.view.affichage import Affichage
-from sources.controleur.control import start
 import time
 import pygame
 from sources.modele.update_modele import update_mod
@@ -31,11 +29,10 @@ if __name__ == "__main__":
 	elif len(sys.argv) == 6:
 		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
-	
-	Thread(target=start, args=(arene,)).start()
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))
-	afficheur.affiche(arene)
 	Thread(target=update_mod,args=(arene,)).start()
+	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))	
+	Thread(target=afficheur.start, args=(arene,)).start()
+	afficheur.affiche(arene)
 	# start(arene)
 
 
