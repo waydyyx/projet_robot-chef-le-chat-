@@ -27,6 +27,9 @@ class Affichage :
             self.screen.blit(img_robot_rotation, rect)  
             pygame.gfxdraw.pixel(self.screen,125,100,(0, 0, 255))
             pygame.display.flip()
+            with arene.stop_lock:
+                if arene.stop == 1:
+                    return 
 
     def start(self, arene : Arene):
         pygame.init()
@@ -37,7 +40,7 @@ class Affichage :
                 if (event.type == pygame.QUIT):
                     with arene.stop_lock:
                         arene.stop = 1
-
+                        
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         with arene.stop_lock:

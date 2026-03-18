@@ -2,6 +2,7 @@ from sources.modele.arene import Arene
 from sources.strategie.carree import carre
 from sources.strategie.rectangle import rectangle
 from sources.strategie.autonome import autonome
+import pygame
 # from sources.view.affichage import Affichage
 
 
