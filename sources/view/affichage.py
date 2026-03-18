@@ -38,13 +38,12 @@ class Affichage :
         while not(arene.stop):
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
-                    with arene.stop_lock:
-                        arene.stop = 1
+                    traiter_touche(arene, "QUIT")
+                    
                         
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        with arene.stop_lock:
-                            arene.stop = 1
+                        traiter_touche(arene, "ESC")
                     elif event.key == pygame.K_a:
                         traiter_touche(arene, "a")
                     

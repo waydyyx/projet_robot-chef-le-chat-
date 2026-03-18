@@ -2,7 +2,6 @@ from sources.modele.arene import Arene
 from sources.strategie.carree import carre
 from sources.strategie.rectangle import rectangle
 from sources.strategie.autonome import autonome
-import pygame
 # from sources.view.affichage import Affichage
 
 
@@ -12,6 +11,9 @@ def traiter_touche(arene: Arene, cle: str):
     if cle == "z":
         with arene.robot.lock:
             arene.robot.avancer()
+    elif cle == "ESC" or cle == "QUIT":
+        with arene.stop_lock:
+            arene.stop = 1
     # changement directe de la vitesse des roues 
     elif cle  == "e":
         with arene.robot.lock:
