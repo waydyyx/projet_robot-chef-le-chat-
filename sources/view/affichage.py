@@ -1,13 +1,8 @@
 from sources.modele.arene import Arene
 from sources.controleur.control import traiter_touche
-
-# from sources.strategie.rectangle import rectangle
-# from sources.strategie.autonome import autonome
-# from sources.strategie.carree import carre
-
-import time 
-import pygame
 from pygame import gfxdraw
+import pygame
+import time 
 import math
 
 class Affichage :
@@ -39,8 +34,7 @@ class Affichage :
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     traiter_touche(arene, "QUIT")
-                    
-                        
+
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         traiter_touche(arene, "ESC")
@@ -77,7 +71,6 @@ class Affichage :
                     elif event.key == pygame.K_RIGHT:
                         traiter_touche(arene, "RIGHT")
 
-                    
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_z]:
                 traiter_touche(arene, "z")
@@ -85,10 +78,8 @@ class Affichage :
             with arene.stop_lock:
                 if (arene.stop == 1):
                     return 
-            
             print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {int(arene.robot.px)} py: {int(arene.robot.py)} obstacle: {arene.detection_obstacle()}")
             clock.tick(60)
-
 
     def affiche_obstacle(self, arene:Arene):
         for ob in arene.obstacles:

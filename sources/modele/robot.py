@@ -1,8 +1,6 @@
-import math 
-import pygame
-import time 
-# from arene import Arene
 from multiprocessing import RLock
+import math 
+import time 
 
 
 class Robot:
@@ -19,7 +17,6 @@ class Robot:
 		:param py: position y du robot
 		:type py: int 
 		"""
-
         self.size = 50 # TAILLE ROBOT
         self.L =  self.size # distance entre les rous
         self.dt = 0.1 # pas de temps

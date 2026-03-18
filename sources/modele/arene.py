@@ -1,7 +1,7 @@
-import random
 from sources.modele.robot import Robot
-import math
 from multiprocessing import RLock
+import random
+import math
 
 class Obstacle:
     def __init__(self, px:int, py:int, larg:int, haut:int):

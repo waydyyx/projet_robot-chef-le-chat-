@@ -1,6 +1,5 @@
 
 from sources.modele.arene import Arene
-from sources.modele.robot import Robot
 from sources.strategie.rectangle import rectangle
 
 
