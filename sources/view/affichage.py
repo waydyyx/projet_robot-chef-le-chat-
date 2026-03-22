@@ -71,6 +71,9 @@ class Affichage :
                     elif event.key == pygame.K_RIGHT:
                         traiter_touche(arene, "RIGHT")
 
+                    elif event.key == pygame.K_k:
+                        traiter_touche(arene, "k")
+
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_z]:
                 traiter_touche(arene, "z")

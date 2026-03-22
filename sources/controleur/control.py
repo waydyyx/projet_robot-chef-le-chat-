@@ -2,6 +2,8 @@ from sources.modele.arene import Arene
 from sources.strategie.carree import carre
 from sources.strategie.rectangle import rectangle
 from sources.strategie.autonome import autonome
+from sources.strategie.strat_unit import AvancerDroit
+import time
 
 
 
@@ -34,7 +36,14 @@ def traiter_touche(arene: Arene, cle: str):
     elif cle == "p":
         autonome(arene, 2)
     elif cle =="k":
-        arene.robot.strat_avancer(25)
+        # arene.robot.strat_avancer(100,5)
+        vd=arene.robot.vitesse_d
+        vg=arene.robot.vitesse_g
+        strat=AvancerDroit(arene.robot,50,5)
+        while not strat.stop():
+            strat.step()
+            time.sleep(1/60)
+        arene.robot.change_vitesse(vg,vd)
 
     # preset sur les fleches directionnelles
     elif cle =="UP":
