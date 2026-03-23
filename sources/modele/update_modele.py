@@ -1,4 +1,5 @@
-from sources.modele.arene import Arene
+from modele.arene import Arene
+import time
 
 def update_mod(arene:Arene):
     while True:
@@ -9,3 +10,4 @@ def update_mod(arene:Arene):
         with arene.stop_lock:
             if arene.stop==1:
                 return
+        time.sleep(0.1)

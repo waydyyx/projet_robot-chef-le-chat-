@@ -1,5 +1,5 @@
-from sources.modele.arene import Arene
-from sources.controleur.control import traiter_touche
+from modele.arene import Arene
+from controleur.control import traiter_touche
 from pygame import gfxdraw
 import pygame
 import time 
@@ -9,7 +9,7 @@ class Affichage :
     def __init__(self , screen):
         self.screen = screen
         self.screen_larg, self.screen_haut = screen.get_size()
-        self.img_robot = pygame.image.load("images/robot_exceptionnel.png").convert_alpha()
+        self.img_robot = pygame.image.load("../images/robot_exceptionnel.png").convert_alpha()
         self.img_robot_larg, self.img_robot_haut = self.img_robot.get_size()
 
     def affiche(self, arene : Arene):
@@ -25,6 +25,7 @@ class Affichage :
             with arene.stop_lock:
                 if arene.stop == 1:
                     return 
+            
 
     def start(self, arene : Arene):
         pygame.init()
@@ -83,6 +84,7 @@ class Affichage :
                     return 
             print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {int(arene.robot.px)} py: {int(arene.robot.py)} obstacle: {arene.detection_obstacle()}")
             clock.tick(60)
+
 
     def affiche_obstacle(self, arene:Arene):
         for ob in arene.obstacles:

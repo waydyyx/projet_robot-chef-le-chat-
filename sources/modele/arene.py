@@ -1,4 +1,4 @@
-from sources.modele.robot import Robot
+from modele.robot import Robot
 from multiprocessing import RLock
 import random
 import math
