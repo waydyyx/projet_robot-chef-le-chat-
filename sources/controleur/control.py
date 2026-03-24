@@ -1,4 +1,4 @@
-from sources.traducteur.state import State
+from traducteur.state import State
 
 class Control:
     def __init__(self,state):

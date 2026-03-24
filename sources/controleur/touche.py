@@ -1,16 +1,18 @@
-from sources.modele.arene import Arene
-from sources.strategie.carree import carre
-from sources.strategie.rectangle import rectangle
-from sources.strategie.autonome import autonome
-from sources.strategie.strat_unit import AvancerDroit
+from modele.arene import Arene
+from strategie.carree import carre
+from strategie.rectangle import rectangle
+from strategie.autonome import autonome
+from strategie.strat_unit import AvancerDroit
+from strategie.strat_unit import Tourner
 import time
+import math
 
 
 
 def traiter_touche(arene: Arene, cle: str):
     if cle == "z":
         with arene.robot.lock:
-            arene.robot.avancer()
+            arene.robot.update_pos()
     elif cle == "ESC" or cle == "QUIT":
         with arene.stop_lock:
             arene.stop = 1
@@ -39,7 +41,16 @@ def traiter_touche(arene: Arene, cle: str):
         # arene.robot.strat_avancer(100,5)
         vd=arene.robot.vitesse_d
         vg=arene.robot.vitesse_g
-        strat=AvancerDroit(arene.robot,50,5)
+        strat=AvancerDroit(arene.robot,25,5)
+        while not strat.stop():
+            strat.step()
+            time.sleep(1/60)
+        arene.robot.change_vitesse(vg,vd)
+    elif cle =="t":
+        # arene.robot.strat_avancer(100,5)
+        vd=arene.robot.vitesse_d
+        vg=arene.robot.vitesse_g
+        strat=Tourner(arene.robot,math.pi/2,10)
         while not strat.stop():
             strat.step()
             time.sleep(1/60)

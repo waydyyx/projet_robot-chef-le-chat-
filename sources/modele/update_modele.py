@@ -10,4 +10,6 @@ def update_mod(arene:Arene):
         with arene.stop_lock:
             if arene.stop==1:
                 return
-        time.sleep(0.1)
+        with arene.robot.lock:
+            arene.robot.update_pos()
+        time.sleep(1/62)

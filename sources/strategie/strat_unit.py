@@ -20,9 +20,14 @@ class AvancerDroit:
         return self.parcouru>self.distance
     
 class Tourner:
-    def __init__(self,robot:Robot,distance,vitesse):
-        self.distance=distance
-        self.vitesse=vitesse
+    def __init__(self,robot:Robot,angle,vitesse):
+        self.angle=angle
+        if self.angle<0:
+            self.vit_g=vitesse*(-1)
+            self.vit_d=vitesse
+        else:
+            self.vit_g=vitesse
+            self.vit_d=vitesse*(-1)
         self.robot=robot
         self.parcouru=0
 
@@ -30,7 +35,10 @@ class Tourner:
         self.parcouru=0
 
     def step(self):
-        self.parcouru+=self.vitesse*self.robot.ray/60
-        if self.stop():return
-        self.robot.change_vitesse(self.vitesse,self.vitesse)
-        self.robot.avancer()
+        self.parcouru+=(self.vit_g*self.robot.ray/60 - self.vit_d*self.robot.ray/60) / self.robot.size
+        # if self.stop():return
+        self.robot.change_vitesse(self.vit_g,self.vit_d)
+        # self.robot.update_pos()
+
+    def stop(self):
+        return abs(self.parcouru)>abs(self.angle)

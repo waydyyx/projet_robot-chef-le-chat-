@@ -1,17 +1,18 @@
-from sources.modele.arene import Arene
-from sources.controleur.control import traiter_touche
+from modele.arene import Arene
+from controleur.touche import traiter_touche
+from modele.arene import Arene
 from pygame import gfxdraw
 import pygame
 import time 
 import math
 from threading import Thread
-from sources.modele.update_modele import update_mod
+from modele.update_modele import update_mod
 
 class Affichage :
     def __init__(self , screen, arene):
         self.screen = screen
         self.screen_larg, self.screen_haut = screen.get_size()
-        self.img_robot = pygame.image.load("../images/robot_exceptionnel.png").convert_alpha()
+        self.img_robot = pygame.image.load("images/robot_exceptionnel.png").convert_alpha()
         self.img_robot_larg, self.img_robot_haut = self.img_robot.get_size()
         self.arene=arene
 
@@ -29,7 +30,7 @@ class Affichage :
                 if self.arene.stop == 1:
                     return 
 
-    def start(self, arene : Arene):
+    def start(self):
         pygame.init()
         clock = pygame.time.Clock()
         # Lecture des touches
@@ -77,9 +78,12 @@ class Affichage :
                     elif event.key == pygame.K_k:
                         traiter_touche(self.arene, "k")
 
+                    elif event.key == pygame.K_t:
+                        traiter_touche(self.arene, "t")
+
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_z]:
-                traiter_touche(self.arene, "z")
+            # if pressed[pygame.K_z]:
+            #     traiter_touche(self.arene, "z")
 
             with self.arene.stop_lock:
                 if (self.arene.stop == 1):
@@ -87,8 +91,8 @@ class Affichage :
             print(f"vit_g: {self.arene.robot.vitesse_g}, vit_d: {self.arene.robot.vitesse_d} px: {int(self.arene.robot.px)} py: {int(self.arene.robot.py)} obstacle: {self.arene.detection_obstacle()}")
             clock.tick(60)
 
-    def affiche_obstacle(self, arene:Arene):
-        for ob in arene.obstacles:
+    def affiche_obstacle(self):
+        for ob in self.arene.obstacles:
             for x in range (ob.px , ob.px + ob.larg):
                 for y in range (ob.py , ob.py + ob.haut):
                     pygame.gfxdraw.pixel(self.screen,x,y,(1, 1, 1))
