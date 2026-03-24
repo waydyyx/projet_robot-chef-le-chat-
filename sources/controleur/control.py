@@ -1,60 +1,8 @@
-from sources.modele.arene import Arene
-from sources.strategie.carree import carre
-from sources.strategie.rectangle import rectangle
-from sources.strategie.autonome import autonome
-from sources.strategie.strat_unit import AvancerDroit
-import time
+from sources.traducteur.state import State
 
+class Control:
+    def __init__(self,state):
+        self.state=state
 
-
-def traiter_touche(arene: Arene, cle: str):
-    if cle == "z":
-        with arene.robot.lock:
-            arene.robot.avancer()
-    elif cle == "ESC" or cle == "QUIT":
-        with arene.stop_lock:
-            arene.stop = 1
-    # changement directe de la vitesse des roues 
-    elif cle  == "e":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d + 1)
-    elif cle == "d":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(arene.robot.vitesse_g,  arene.robot.vitesse_d - 1)        
-    elif cle == "a":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(arene.robot.vitesse_g + 1,  arene.robot.vitesse_d)
-    elif cle =="q":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d) 
-
-    # strategie
-    elif cle =="c":
-        carre(arene, 35, 10)
-    elif cle == "r":
-        rectangle(arene, 70, 35, 10)
-    elif cle == "p":
-        autonome(arene, 2)
-    elif cle =="k":
-        # arene.robot.strat_avancer(100,5)
-        vd=arene.robot.vitesse_d
-        vg=arene.robot.vitesse_g
-        strat=AvancerDroit(arene.robot,50,5)
-        while not strat.stop():
-            strat.step()
-            time.sleep(1/60)
-        arene.robot.change_vitesse(vg,vd)
-
-    # preset sur les fleches directionnelles
-    elif cle =="UP":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(4, 4)
-    elif cle == "RIGHT":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(2, -2)
-    elif cle == "DOWN":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(-4, -4)
-    elif cle == "LEFT":
-        with arene.robot.lock:
-            arene.robot.change_vitesse(-2, 2)
+    def start(self):
+        self.state.start()

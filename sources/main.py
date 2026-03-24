@@ -6,6 +6,9 @@ from sources.view.affichage import Affichage
 import time
 import pygame
 from sources.modele.update_modele import update_mod
+from sources.traducteur.state import State
+from sources.controleur.control import Control
+from sources.view.test import Test
 
 if __name__ == "__main__":
 	assert (len(sys.argv) >= 3 and len(sys.argv) <= 6), "\n\nobligatoire (2): vitesse_gauche ([int] 0-100) | vitesse_droite ([int] 0-100)\noptionnel   (3): l'angle de depart ([int] 0-359) | position x ([int]) | position y ([int])"
@@ -30,12 +33,18 @@ if __name__ == "__main__":
 		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)))	
-	Thread(target=update_mod,args=(arene,)).start()
-	Thread(target=afficheur.start, args=(arene,)).start()
-	afficheur.affiche(arene)
-	# Thread(target=afficheur.affiche, args=(arene,)).start()
-	# afficheur.start(arene)
+	
+	# afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)	
+	# Thread(target=update_mod,args=(arene,)).start()
+	# # Thread(target=afficheur.start, args=(arene,)).start()
+	# # afficheur.affiche(arene)
+	# Thread(target=afficheur.affiche).start()
+	# afficheur.start()
+
+	controleur=Control(Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene))
+	# control=Control(Test())
+	controleur.start()
+
 
 
 
