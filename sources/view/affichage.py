@@ -1,13 +1,12 @@
 from modele.arene import Arene
+from modele.robot import Robot, UPDATE_TIME
 from controleur.touche import traiter_touche
-from modele.arene import Arene
+from modele.update_modele import update_mod
 from pygame import gfxdraw
 import pygame
 import time 
 import math
 from threading import Thread
-from modele.update_modele import update_mod
-
 class Affichage :
     def __init__(self , screen, arene):
         self.screen = screen
@@ -89,7 +88,7 @@ class Affichage :
                 if (self.arene.stop == 1):
                     return 
             print(f"vit_g: {self.arene.robot.vitesse_g}, vit_d: {self.arene.robot.vitesse_d} px: {int(self.arene.robot.px)} py: {int(self.arene.robot.py)} obstacle: {self.arene.detection_obstacle()}")
-            clock.tick(60)
+            clock.tick(UPDATE_TIME)
 
     def affiche_obstacle(self):
         for ob in self.arene.obstacles:
