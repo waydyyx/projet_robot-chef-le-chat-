@@ -1,3 +1,4 @@
+from modele.arene import Arene
 from modele.robot import Robot, UPDATE_TIME
 import time
 import math
@@ -63,3 +64,35 @@ class Rectangle:
 
     def stop(self):
         return self.cur == len(self.strats) - 1 and self.strats[self.cur].stop()
+    
+
+class Autonome:
+    def __init__(self, arene: Arene, robot: Robot, vitesse, max_collision: int):
+        self.arene = arene
+        self.robot = robot
+        self.nb_collision = 0
+        self.max_collision = max_collision
+        self.strats = [AvancerDroit(robot, 2000, vitesse), Tourner(robot, math.pi / 2, vitesse)]
+        self.cur = 0
+        self.detec_obstacle = False
+
+    def start(self):
+        self.cur = 0
+
+    def step(self):
+        if self.stop(): return
+        if (self.strats[self.cur].stop() and self.cur == 1):
+            self.cur = 0
+            self.detec_obstacle = False
+        if self.detec_obstacle == False and self.arene.detection_obstacle():
+            self.cur = 1
+            self.strats[self.cur].start()
+            self.detec_obstacle = True
+            self.nb_collision += 1
+        self.strats[self.cur].step()
+
+    def stop(self):
+        with self.arene.stop_lock:
+            if self.arene.stop == 1:
+                return True
+        return self.nb_collision == self.max_collision

@@ -2,7 +2,7 @@ from modele.arene import Arene
 from strategie.carree import carre
 from strategie.rectangle import rectangle
 from strategie.autonome import autonome
-from strategie.strat_unit import AvancerDroit, Tourner, Rectangle, UPDATE_TIME
+from strategie.strat_unit import AvancerDroit, Tourner, Rectangle, Autonome, UPDATE_TIME
 import time
 import math
 
@@ -41,7 +41,13 @@ def traiter_touche(arene: Arene, cle: str):
             time.sleep(1 / UPDATE_TIME)
         arene.robot.change_vitesse(vg, vd)
     elif cle == "p":
-        autonome(arene, 2)
+        vd=arene.robot.vitesse_d
+        vg=arene.robot.vitesse_g
+        strat = Autonome(arene, arene.robot, 5, 5)
+        while not strat.stop():
+            strat.step()
+            time.sleep(1 / UPDATE_TIME)
+        arene.robot.change_vitesse(vg,vd)
     elif cle =="k":
         # arene.robot.strat_avancer(100,5)
         vd=arene.robot.vitesse_d
