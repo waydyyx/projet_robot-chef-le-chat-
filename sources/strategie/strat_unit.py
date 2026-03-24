@@ -1,4 +1,4 @@
-from sources.modele.robot import Robot
+from modele.robot import Robot
 
 class AvancerDroit:
     def __init__(self,robot:Robot,distance,vitesse):
@@ -14,7 +14,7 @@ class AvancerDroit:
         self.parcouru+=self.vitesse*self.robot.ray/60
         if self.stop():return
         self.robot.change_vitesse(self.vitesse,self.vitesse)
-        self.robot.avancer()
+        self.robot.update_pos()
     
     def stop(self):
         return self.parcouru>self.distance

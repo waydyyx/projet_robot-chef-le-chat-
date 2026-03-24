@@ -1,6 +1,6 @@
 
-from sources.modele.arene import Arene
-from sources.strategie.rectangle import rectangle
+from modele.arene import Arene
+from strategie.rectangle import rectangle
 
 
 

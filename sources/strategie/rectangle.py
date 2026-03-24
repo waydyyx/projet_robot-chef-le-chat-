@@ -1,4 +1,4 @@
-from sources.modele.arene import Arene
+from modele.arene import Arene
 import math
 
 

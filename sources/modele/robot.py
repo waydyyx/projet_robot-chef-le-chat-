@@ -27,18 +27,18 @@ class Robot:
         self.angle = math.radians(359) if (angle > 359) else 0 if (angle < 0) else angle # ANGLE EN DEGREE
         self.px = px  # position x
         self.py = py  # position y 
-        self.dx = (self.vitesse_d*self.ray/60  + self.vitesse_g*self.ray/60) / 2 * math.cos((self.vitesse_g*self.ray/60 - self.vitesse_d*self.ray/60) / self.size) # unite de deplacement en x
-        self.dy = (self.vitesse_d*self.ray/60  + self.vitesse_g*self.ray/60) / 2 * math.sin((self.vitesse_g*self.ray/60 - self.vitesse_d*self.ray/60) / self.size) # unite de deplacement en y
+        self.dx = (self.vitesse_d*self.ray / 60  + self.vitesse_g * self.ray / 60) / 2 * math.cos((self.vitesse_g * self.ray / 60 - self.vitesse_d*self.ray / 60) / self.size) # unite de deplacement en x
+        self.dy = (self.vitesse_d*self.ray / 60  + self.vitesse_g * self.ray / 60) / 2 * math.sin((self.vitesse_g * self.ray / 60 - self.vitesse_d*self.ray / 60) / self.size) # unite de deplacement en y
         # self.vitesse = (self.vitesse_g+self.vitesse_d) / 2
         self.lock = RLock()
 
-    def avancer(self):
-        v = (self.vitesse_d*self.ray/60  + self.vitesse_g*self.ray/60) / 2
-        omega = (self.vitesse_g*self.ray/60 - self.vitesse_d*self.ray/60) / self.size
+    def update_pos(self):
+        v = (self.vitesse_d*self.ray / 60  + self.vitesse_g*self.ray / 60) / 2
+        omega = (self.vitesse_g*self.ray / 60 - self.vitesse_d*self.ray / 60) / self.size
 
         # mise à jour position
-        self.px += self.dx 
-        self.py += self.dy 
+        self.px += self.dx * 5
+        self.py += self.dy * 5
 
         # calcul déplacement
         self.dx = v * math.cos(self.angle + omega)
