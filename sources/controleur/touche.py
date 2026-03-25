@@ -27,8 +27,6 @@ def traiter_touche(arene: Arene, cle: str):
             arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d) 
 
     # strategie
-    elif cle =="c":
-        carre(arene, 35, 10)
     elif cle == "r":
         vd=arene.robot.vitesse_d
         vg=arene.robot.vitesse_g
