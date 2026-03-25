@@ -6,11 +6,11 @@ from view.affichage import Affichage
 import time
 import pygame
 from modele.update_modele import update_mod
-from traducteur.state import State
+from traducteur.state import Simulation
 from controleur.control import Control
-# from view.test import Test
+from traducteur.state import Robot_IRL
 
-UPDATE_TIME = 60
+
 if __name__ == "__main__":
 	assert (len(sys.argv) >= 3 and len(sys.argv) <= 6), "\n\nobligatoire (2): vitesse_gauche ([int] 0-100) | vitesse_droite ([int] 0-100)\noptionnel   (3): l'angle de depart ([int] 0-359) | position x ([int]) | position y ([int])"
 	if sys.argv[1][0] == '-':
@@ -35,13 +35,21 @@ if __name__ == "__main__":
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
 	
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)	
-	Thread(target=update_mod,args=(arene,)).start()
-	Thread(target=afficheur.start,).start()
-	afficheur.affiche()
+	# afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)
+	# Thread(target=update_mod,args=(arene,)).start()
+	# # Thread(target=afficheur.start, args=(arene,)).start()
+	# # afficheur.affiche(arene)
 	# Thread(target=afficheur.affiche).start()
-	# afficheur.start()
+	# # afficheur.start()
 
-	# controleur=Control(Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene))
-	# # control=Control(Test())
-	# controleur.start()
+	state=Simulation(Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene))
+	state.start()
+
+	controleur=Control(arene)
+	controleur_irl=Robot_IRL()
+	# control=Control(Test())
+	controleur.start()
+	# Thread(target=controleur.state.affiche).start()
+
+
+
