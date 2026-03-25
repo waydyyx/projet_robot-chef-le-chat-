@@ -1,7 +1,4 @@
 from modele.arene import Arene
-from strategie.carree import carre
-from strategie.rectangle import rectangle
-from strategie.autonome import autonome
 from strategie.strat_unit import AvancerDroit, Tourner, Rectangle, Autonome, UPDATE_TIME
 import time
 import math

@@ -3,7 +3,7 @@ from modele.robot import Robot, UPDATE_TIME
 import time
 import math
 class AvancerDroit:
-    def __init__(self,robot:Robot,distance,vitesse):
+    def __init__(self, robot:Robot, distance, vitesse):
         self.distance=distance
         self.vitesse=vitesse
         self.robot=robot
@@ -22,7 +22,7 @@ class AvancerDroit:
         return self.parcouru>self.distance
     
 class Tourner:
-    def __init__(self,robot:Robot,angle,vitesse):
+    def __init__(self, robot:Robot, angle, vitesse):
         self.angle=angle
         if self.angle < 0:
             self.vit_g = vitesse * (-1)
@@ -30,17 +30,17 @@ class Tourner:
         else:
             self.vit_g = vitesse
             self.vit_d = vitesse * (-1)
-        self.robot=robot
-        self.parcouru=0
+        self.robot = robot
+        self.parcouru = 0
 
     def start(self):
         self.parcouru=0
 
     def step(self):
-        self.parcouru += (self.vit_g*self.robot.ray / UPDATE_TIME - self.vit_d*self.robot.ray / UPDATE_TIME) / self.robot.size
+        self.parcouru += (self.vit_g*self.robot.ray / UPDATE_TIME - self.vit_d * self.robot.ray / UPDATE_TIME) / self.robot.size
         if self.stop():return
         with self.robot.lock:
-            self.robot.change_vitesse(self.vit_g,self.vit_d)
+            self.robot.change_vitesse(self.vit_g, self.vit_d)
         # self.robot.update_pos()
 
     def stop(self):

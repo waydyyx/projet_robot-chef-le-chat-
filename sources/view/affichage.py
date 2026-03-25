@@ -87,7 +87,6 @@ class Affichage :
             with self.arene.stop_lock:
                 if (self.arene.stop == 1):
                     return 
-            print(f"vit_g: {self.arene.robot.vitesse_g}, vit_d: {self.arene.robot.vitesse_d} px: {int(self.arene.robot.px)} py: {int(self.arene.robot.py)} obstacle: {self.arene.detection_obstacle()}")
             clock.tick(UPDATE_TIME)
 
     def affiche_obstacle(self):
