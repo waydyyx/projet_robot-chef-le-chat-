@@ -43,13 +43,12 @@ if __name__ == "__main__":
 	# # afficheur.start()
 
 	state=Simulation(Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene))
-	state.start()
 
 	controleur=Control(arene)
 	controleur_irl=Robot_IRL()
 	# control=Control(Test())
-	controleur.start()
+	Thread(target=controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()
-
+	state.start()
 
 
