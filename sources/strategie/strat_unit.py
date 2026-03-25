@@ -72,7 +72,7 @@ class Autonome:
         self.robot = robot
         self.nb_collision = 0
         self.max_collision = max_collision
-        self.strats = [AvancerDroit(robot, 2000, vitesse), Tourner(robot, math.pi / 2, vitesse)]
+        self.strats = [AvancerDroit(robot, 2000, vitesse), Tourner(robot, 2 * math.pi / 3, vitesse)]
         self.cur = 0
         self.detec_obstacle = False
 

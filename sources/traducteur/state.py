@@ -9,8 +9,8 @@ class Simulation:
         for event in pygame.event.get():
                 pass
         Thread(target=update_mod,args=(self._st.arene,)).start()
-        Thread(target=self._st.affiche).start()
-        
+        # Thread(target=self._st.affiche).start()
+        self._st.affiche()
             
 
     # def __getattribute__(self, name):
