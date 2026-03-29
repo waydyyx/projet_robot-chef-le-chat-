@@ -23,32 +23,39 @@ if __name__ == "__main__":
 		assert sys.argv[2].isdigit(), "La vitesse_gauche doit etre un int."
 
 	if len(sys.argv) == 3:
-		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2])))
+		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2])))
 	elif len(sys.argv) == 4:
-		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])))
+		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])))
 		assert sys.argv[3].isdigit(), "La vitesse_rot doit etre un int."
 	elif len(sys.argv) == 5:
-		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])))
+		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])))
 		assert sys.argv[4].isdigit(), "La position x doit etre un int."
 	elif len(sys.argv) == 6:
-		arene = Arene(900, 900, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
+		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])))
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
 	
-	# afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)
+	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)
 	# Thread(target=update_mod,args=(arene,)).start()
 	# # Thread(target=afficheur.start, args=(arene,)).start()
 	# # afficheur.affiche(arene)
 	# Thread(target=afficheur.affiche).start()
 	# # afficheur.start()
 
-	state=Simulation(Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene))
+	state=1
+
+
 
 	controleur=Control(arene)
 	controleur_irl=Robot_IRL()
 	# control=Control(Test())
 	Thread(target=controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()
-	state.start()
+	# state.start()
 
-
+	if state==1:
+		for event in pygame.event.get():
+			pass
+		Thread(target=update_mod,args=(arene,)).start()
+        # Thread(target=self._st.affiche).start()
+		afficheur.affiche()
