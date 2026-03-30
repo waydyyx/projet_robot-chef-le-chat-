@@ -12,6 +12,6 @@ def update_mod(arene:Arene):
             arene.robot.update_pos()
             #print(f"vit_g: {arene.robot.vitesse_g}, vit_d: {arene.robot.vitesse_d} px: {int(arene.robot.px)} py: {int(arene.robot.py)} obstacle: {arene.detection_obstacle()}")
         with arene.stop_lock:
-            if arene.stop==1:
+            if arene.stop == 1:
                 return
         time.sleep(1/UPDATE_TIME)

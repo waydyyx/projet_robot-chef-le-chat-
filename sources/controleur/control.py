@@ -14,12 +14,15 @@ class Control:
 
     def exec_strat(self,strat):
         while not strat.stop():
+            with self.arene.stop_lock:
+                if self.arene.stop == 1:
+                    return
             strat.step()
             time.sleep(1 / (UPDATE_TIME))
 
     def start(self):
         
-        robot=self.robot
+        robot = self.robot
         autonome = Sequence([Strat_while(AvancerDroit(robot,10,5), self.arene.detection_obstacle),Tourner(robot,math.pi/2,5)])
         strat = Strat_for(autonome, 4)
         self.exec_strat(strat)

@@ -29,7 +29,7 @@ class Affichage :
                 if self.arene.stop == 1:
                     return 
 
-    def start(self):
+    def recuperer_touche(self):
         pygame.init()
         clock = pygame.time.Clock()
         # Lecture des touches
@@ -41,46 +41,46 @@ class Affichage :
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         traiter_touche(self.arene, "ESC")
-                    elif event.key == pygame.K_a:
-                        traiter_touche(self.arene, "a")
+                    # elif event.key == pygame.K_a:
+                    #     traiter_touche(self.arene, "a")
                     
-                    elif event.key == pygame.K_q:
-                        traiter_touche(self.arene, "q")
+                    # elif event.key == pygame.K_q:
+                    #     traiter_touche(self.arene, "q")
                     
-                    elif event.key == pygame.K_e:
-                        traiter_touche(self.arene, "e")
+                    # elif event.key == pygame.K_e:
+                    #     traiter_touche(self.arene, "e")
                     
-                    elif event.key == pygame.K_d:
-                        traiter_touche(self.arene, "d")
+                    # elif event.key == pygame.K_d:
+                    #     traiter_touche(self.arene, "d")
                     
-                    elif event.key == pygame.K_c:
-                        traiter_touche(self.arene, "c")
+                    # elif event.key == pygame.K_c:
+                    #     traiter_touche(self.arene, "c")
                     
-                    elif event.key == pygame.K_r:
-                        traiter_touche(self.arene, "r")
+                    # elif event.key == pygame.K_r:
+                    #     traiter_touche(self.arene, "r")
                     
-                    elif event.key == pygame.K_p:
-                        traiter_touche(self.arene, "p")
+                    # elif event.key == pygame.K_p:
+                    #     traiter_touche(self.arene, "p")
                     
-                    elif event.key == pygame.K_UP:
-                        traiter_touche(self.arene, "UP")
+                    # elif event.key == pygame.K_UP:
+                    #     traiter_touche(self.arene, "UP")
                     
-                    elif event.key == pygame.K_DOWN:
-                        traiter_touche(self.arene, "DOWN")
+                    # elif event.key == pygame.K_DOWN:
+                    #     traiter_touche(self.arene, "DOWN")
                     
-                    elif event.key == pygame.K_LEFT:
-                        traiter_touche(self.arene, "LEFT")
+                    # elif event.key == pygame.K_LEFT:
+                    #     traiter_touche(self.arene, "LEFT")
                     
-                    elif event.key == pygame.K_RIGHT:
-                        traiter_touche(self.arene, "RIGHT")
+                    # elif event.key == pygame.K_RIGHT:
+                    #     traiter_touche(self.arene, "RIGHT")
 
-                    elif event.key == pygame.K_k:
-                        traiter_touche(self.arene, "k")
+                    # elif event.key == pygame.K_k:
+                    #     traiter_touche(self.arene, "k")
 
-                    elif event.key == pygame.K_t:
-                        traiter_touche(self.arene, "t")
+                    # elif event.key == pygame.K_t:
+                    #     traiter_touche(self.arene, "t")
 
-            pressed = pygame.key.get_pressed()
+            # pressed = pygame.key.get_pressed()
             # if pressed[pygame.K_z]:
             #     traiter_touche(self.arene, "z")
 

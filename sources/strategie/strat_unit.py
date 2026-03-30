@@ -120,7 +120,7 @@ class Sequence:
     
 
 class Strat_while:
-    def __init__(self,strat,condition):
+    def __init__(self, strat,condition):
         self.strat = strat
         self.cond=condition
 
@@ -136,19 +136,19 @@ class Strat_while:
 class Strat_for:
     def __init__(self, strat, n):
         self.max=n
-        self.curr=0
+        self.curr = 0
         self.strat=strat
 
     def start(self):
-        self.curr=0
+        self.curr = 0
 
     def step(self):
         if self.strat.stop():
-            self.curr+=1
+            self.curr += 1
             self.strat.start()
         self.strat.step()
 
     def stop(self):
-        return self.curr>=self.max
+        return self.curr >= self.max
         
 

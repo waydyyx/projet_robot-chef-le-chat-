@@ -57,5 +57,6 @@ if __name__ == "__main__":
 		for event in pygame.event.get():
 			pass
 		Thread(target=update_mod,args=(arene,)).start()
+		Thread(target=afficheur.recuperer_touche).start()
         # Thread(target=self._st.affiche).start()
 		afficheur.affiche()
