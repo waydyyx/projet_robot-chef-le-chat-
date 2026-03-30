@@ -1,6 +1,6 @@
 # from traducteur.state import State
 import math
-from strategie.strat_unit import Tourner, AvancerDroit, Autonome,Sequence, Strat_while, Strat_for, UPDATE_TIME
+from strategie.strat_unit import Tourner, AvancerDroit,Sequence, Strat_while, Strat_for, UPDATE_TIME
 import time
 from threading import Thread
 from modele.update_modele import update_mod
