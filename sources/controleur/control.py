@@ -24,7 +24,10 @@ class Control:
         
         robot = self.robot
         autonome = Sequence([Strat_while(AvancerDroit(robot,10,5), self.arene.detection_obstacle),Tourner(robot,math.pi/2,5)])
-        strat = Strat_for(autonome, 4)
+        carre = Sequence([AvancerDroit(robot, 20, 5), Tourner(robot,math.pi/2,5)])
+        strat = Strat_for(autonome, 1)
+        self.exec_strat(strat)
+        strat = Strat_for(carre, 4)
         self.exec_strat(strat)
         # strat=Sequence([AvancerDroit(robot,10,5),Tourner(robot,math.pi,5)])
         # self.exec_strat(strat)

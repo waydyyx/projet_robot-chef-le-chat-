@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
 
 	controleur=Control(arene)
-	controleur_irl=Robot_IRL()
+	controleur_irl=Robot_IRL(arene.robot)
 	# control=Control(Test())
 	Thread(target=controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()

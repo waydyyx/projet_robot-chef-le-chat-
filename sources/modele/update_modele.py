@@ -14,4 +14,4 @@ def update_mod(arene:Arene):
         with arene.stop_lock:
             if arene.stop == 1:
                 return
-        time.sleep(1/UPDATE_TIME)
+        time.sleep(1 / UPDATE_TIME)

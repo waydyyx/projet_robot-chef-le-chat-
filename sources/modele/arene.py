@@ -38,7 +38,7 @@ class Arene:
         return False 
     
     
-    def detection_obstacle(self): # prend un screen en parametre si on veut afficher
+    def detection_obstacle(self):
         """
         Detecte un obstacle 
         """

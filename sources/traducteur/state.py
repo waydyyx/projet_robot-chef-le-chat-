@@ -17,8 +17,9 @@ class Simulation:
     #     return getattr(self._st, name)$
 
 class Robot_IRL:
-    def __init__(self):
-        pass
+    def __init__(self, robot):
+        self.moteur_gauche = robot.vitesse_g
+        self.moteur_droite = robot.vitesse_d
 
     def start(self):
         print("yeaah")
