@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
 
 	tableau_strategies = instruction_robot(arene, arene.robot) # on va mettre les instructions du robot dans cette fonction pour charger les instruction a l'avance dans un tableaux
-	controleur = Control(tableau_strategies, arene.stop_lock, arene.stop)
+	controleur = Control(tableau_strategies)
 	controleur_irl = Robot_IRL(arene.robot)
 	# control=Control(Test())
 	Thread(target = controleur.start).start()

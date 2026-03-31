@@ -14,28 +14,27 @@ def instruction_robot(arene, robot):
     carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot,math.pi/2,5)])
     tab_strat.append(Strat_for(autonome, 1))
     tab_strat.append(Strat_for(carre, 4))
-    return tab_strat
+    return tab_strat + [arene]
 
 class Control:
-    def __init__(self, tab_strat, stop_lock: "Rlock", stop):
+    def __init__(self, tab_strat):
         self.tab_strat = tab_strat
-        self.stop_lock, self.stop = stop_lock, stop
     def exec_strat(self, strat):
         while not strat.stop():
-            with self.stop_lock:
-                if self.stop == 1:
+            with self.tab_strat[-1].stop_lock:
+                if self.tab_strat[-1].stop == 1:
                     return
             strat.step()
             time.sleep(1 / UPDATE_TIME)
 
     def start(self):
-        for strat in self.tab_strat:
-            self.exec_strat(strat)
-            with self.stop_lock:
-                if self.stop == 1:
+        for i in range(len(self.tab_strat) - 1):
+            self.exec_strat(self.tab_strat[i])
+            with self.tab_strat[-1].stop_lock:
+                if self.tab_strat[-1].stop == 1:
                     break
-        with self.stop_lock:
-            self.stop = 1
+        with self.tab_strat[-1].stop_lock: # celle la
+            self.tab_strat[-1].stop = 1            # Si on ne veut pas que le programme sarrete il faut commenter les deux lignes
         print("strat fini")
     
 # class Control:
