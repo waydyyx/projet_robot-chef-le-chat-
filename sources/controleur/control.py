@@ -8,30 +8,54 @@ from modele.update_modele import update_mod
 import pygame
 from modele.arene import Arene
 
-class Control:
-    def __init__(self,arene):
-        self.arene=arene
-        self.robot=arene.robot
+def instruction_robot(arene, robot):
+    tab_strat = []
+    autonome = Sequence([Strat_while(AvancerDroit(robot,10,5), arene.detection_obstacle), Tourner(robot, math.pi / 2,5)])
+    carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot,math.pi/2,5)])
+    tab_strat.append(Strat_for(autonome, 1))
+    tab_strat.append(Strat_for(carre, 4))
+    return tab_strat
 
-    def exec_strat(self,strat):
+class Control:
+    def __init__(self, tab_strat, stop_lock: "Rlock", stop):
+        self.tab_strat = tab_strat
+        self.stop_lock, self.stop = stop_lock, stop
+    def exec_strat(self, strat):
         while not strat.stop():
-            with self.arene.stop_lock:
-                if self.arene.stop == 1:
+            with self.stop_lock:
+                if self.stop == 1:
                     return
             strat.step()
-            time.sleep(1 / (UPDATE_TIME))
+            time.sleep(1 / UPDATE_TIME)
 
     def start(self):
+        for strat in self.tab_strat:
+            self.exec_strat(strat)
+            with self.stop_lock:
+                if self.stop == 1:
+                    break
+        with self.stop_lock:
+            self.stop = 1
+        print("strat fini")
+    
+# class Control:
+#     def __init__(self,arene):
+#         self.arene=arene
+#         self.robot=arene.robot
+
+#     def exec_strat(self,strat):
+#         while not strat.stop():
+#             with self.arene.stop_lock:
+#                 if self.arene.stop == 1:
+#                     return
+#             strat.step()
+#             time.sleep(1 / (UPDATE_TIME))
+
+#     def start(self):
         
-        robot = self.robot
-        autonome = Sequence([Strat_while(AvancerDroit(robot,10,5), self.arene.detection_obstacle),Tourner(robot,math.pi/2,5)])
-        carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot,math.pi/2,5)])
-        strat = Strat_for(autonome, 1)
-        self.exec_strat(strat)
-        strat = Strat_for(carre, 4)
-        self.exec_strat(strat)
-        # strat=Sequence([AvancerDroit(robot,10,5),Tourner(robot,math.pi,5)])
-        # self.exec_strat(strat)
-        print("fini")
-        with self.arene.stop_lock:
-            self.arene.stop = 1
+        
+#         # strat=Sequence([AvancerDroit(robot,10,5),Tourner(robot,math.pi,5)])
+#         # self.exec_strat(strat)
+#         print("fini")
+#         with self.arene.stop_lock:
+#             self.arene.stop = 1

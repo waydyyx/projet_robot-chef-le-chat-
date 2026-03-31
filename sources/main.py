@@ -7,7 +7,7 @@ import time
 import pygame
 from modele.update_modele import update_mod
 # from traducteur.state import Simulation
-from controleur.control import Control
+from controleur.control import Control, instruction_robot
 from traducteur.state import Robot_IRL
 
 
@@ -35,28 +35,28 @@ if __name__ == "__main__":
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
 	
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)),arene)
+	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)), arene)
 	# Thread(target=update_mod,args=(arene,)).start()
 	# # Thread(target=afficheur.start, args=(arene,)).start()
 	# # afficheur.affiche(arene)
 	# Thread(target=afficheur.affiche).start()
 	# # afficheur.start()
 
-	state=1
+	# state=1
 
 
-
-	controleur = Control(arene)
+	tableau_strategies = instruction_robot(arene, arene.robot) # on va mettre les instructions du robot dans cette fonction pour charger les instruction a l'avance dans un tableaux
+	controleur = Control(tableau_strategies, arene.stop_lock, arene.stop)
 	controleur_irl = Robot_IRL(arene.robot)
 	# control=Control(Test())
-	Thread(target=controleur.start).start()
+	Thread(target = controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()
 	# state.start()
 
-	if state==1:
-		for event in pygame.event.get():
-			pass
-		Thread(target=update_mod,args=(arene,)).start()
-		Thread(target=afficheur.recuperer_touche).start()
-        # Thread(target=self._st.affiche).start()
-		afficheur.affiche()
+	# if state==1:
+	for event in pygame.event.get():
+		pass
+	Thread(target = update_mod, args = (arene,)).start()
+	Thread(target = afficheur.recuperer_touche).start()
+	# Thread(target=self._st.affiche).start()
+	afficheur.affiche()
