@@ -4,9 +4,9 @@ import time
 import math
 class AvancerDroit:
     def __init__(self, robot:Robot, distance, vitesse):
-        self.distance=distance
-        self.vitesse=vitesse
-        self.robot=robot
+        self.distance = distance
+        self.vitesse = vitesse
+        self.robot = robot
         self.parcouru=0
 
     def start(self):

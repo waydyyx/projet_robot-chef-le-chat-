@@ -6,7 +6,7 @@ from view.affichage import Affichage
 import time
 import pygame
 from modele.update_modele import update_mod
-from traducteur.state import Simulation
+# from traducteur.state import Simulation
 from controleur.control import Control
 from traducteur.state import Robot_IRL
 
@@ -46,8 +46,8 @@ if __name__ == "__main__":
 
 
 
-	controleur=Control(arene)
-	controleur_irl=Robot_IRL(arene.robot)
+	controleur = Control(arene)
+	controleur_irl = Robot_IRL(arene.robot)
 	# control=Control(Test())
 	Thread(target=controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()

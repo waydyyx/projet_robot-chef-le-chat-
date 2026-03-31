@@ -1,18 +1,18 @@
 import pygame
 from threading import Thread
 from modele.update_modele import update_mod
-from API_robot.robot2I013 import Robot2IN013
+# from API_robot.robot2I013 import Robot2IN013
 
-class Simulation:
-    def __init__(self, st):
-        self._st=st
+# class Simulation:
+#     def __init__(self, st):
+#         self._st=st
     
-    def start(self):
-        for event in pygame.event.get():
-                pass
-        Thread(target=update_mod,args=(self._st.arene,)).start()
-        # Thread(target=self._st.affiche).start()
-        self._st.affiche()
+#     def start(self):
+#         for event in pygame.event.get():
+#                 pass
+#         Thread(target=update_mod,args=(self._st.arene,)).start()
+#         # Thread(target=self._st.affiche).start()
+#         self._st.affiche()
             
 
     # def __getattribute__(self, name):
@@ -20,7 +20,7 @@ class Simulation:
 
 
 class Robot_IRL:
-    def __init__(self,robot:Robot2IN013):
+    def __init__(self,robot:"Robot2IN013"):
         self.robot=robot
 
     def start(self):
