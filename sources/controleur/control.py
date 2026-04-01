@@ -10,8 +10,8 @@ from modele.arene import Arene
 
 def instruction_robot(arene, robot):
     tab_strat = []
-    autonome = Sequence([Strat_while(AvancerDroit(robot,10,5), arene.detection_obstacle), Tourner(robot, math.pi / 2,5)])
-    carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot,math.pi/2,5)])
+    autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10), arene.detection_obstacle), Tourner(robot, math.pi / 2,5)])
+    carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot, math.pi / 2.0966, 5)])
     tab_strat.append(Strat_for(autonome, 1))
     tab_strat.append(Strat_for(carre, 4))
     return tab_strat + [arene]
