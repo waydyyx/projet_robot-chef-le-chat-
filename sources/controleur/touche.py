@@ -1,5 +1,5 @@
 from modele.arene import Arene
-from strategie.strat_unit import AvancerDroit, Tourner, Rectangle, Autonome, UPDATE_TIME
+from strategie.strat_unit import AvancerDroit, Tourner, UPDATE_TIME
 import time
 import math
 
@@ -27,22 +27,22 @@ def traiter_touche(arene: Arene, cle: str):
             arene.robot.change_vitesse(arene.robot.vitesse_g - 1,  arene.robot.vitesse_d) 
 
     # strategie
-    elif cle == "r":
-        vd=arene.robot.vitesse_d
-        vg=arene.robot.vitesse_g
-        strat = Rectangle(arene.robot, 20, 10, 5)
-        while(not strat.stop()):
-            strat.step()
-            time.sleep(1 / UPDATE_TIME)
-        arene.robot.change_vitesse(vg, vd)
-    elif cle == "p":
-        vd=arene.robot.vitesse_d
-        vg=arene.robot.vitesse_g
-        strat = Autonome(arene, arene.robot, 5, 5)
-        while not strat.stop():
-            strat.step()
-            time.sleep(1 / UPDATE_TIME)
-        arene.robot.change_vitesse(vg,vd)
+    # elif cle == "r":
+    #     vd=arene.robot.vitesse_d
+    #     vg=arene.robot.vitesse_g
+    #     strat = Rectangle(arene.robot, 20, 10, 5)
+    #     while(not strat.stop()):
+    #         strat.step()
+    #         time.sleep(1 / UPDATE_TIME)
+    #     arene.robot.change_vitesse(vg, vd)
+    # elif cle == "p":
+    #     vd=arene.robot.vitesse_d
+    #     vg=arene.robot.vitesse_g
+    #     strat = Autonome(arene, arene.robot, 5, 5)
+    #     while not strat.stop():
+    #         strat.step()
+    #         time.sleep(1 / UPDATE_TIME)
+    #     arene.robot.change_vitesse(vg,vd)
     elif cle =="k":
         # arene.robot.strat_avancer(100,5)
         vd=arene.robot.vitesse_d

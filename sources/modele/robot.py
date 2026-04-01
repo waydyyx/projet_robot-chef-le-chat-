@@ -20,7 +20,7 @@ class Robot:
 		:type py: int 
 		"""
         self.size = 50 # TAILLE ROBOT
-        self.ray = 10
+        self.ray = 30
         self.vitesse_d = 10 if (vitesse_d > 10) else -10 if (vitesse_d < -10) else vitesse_d # VITESSE_DROITE
         self.vitesse_g = 10 if (vitesse_g > 10) else -10 if (vitesse_g < -10) else vitesse_g # VITESSE GAUCHE
         self.angle = math.radians(359) if (angle > 359) else 0 if (angle < 0) else angle # ANGLE EN DEGREE
@@ -29,6 +29,8 @@ class Robot:
         self.dx = ((self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g * self.ray / UPDATE_TIME) / 2) * math.cos((self.vitesse_g * self.ray / UPDATE_TIME - self.vitesse_d*self.ray / UPDATE_TIME) / self.size) # unite de deplacement en x
         self.dy = ((self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g * self.ray / UPDATE_TIME) / 2 )* math.sin((self.vitesse_g * self.ray / UPDATE_TIME - self.vitesse_d*self.ray / UPDATE_TIME) / self.size) # unite de deplacement en y
         self.lock = RLock()
+        self.rot_g=0
+        self.rot_d=0
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
@@ -39,12 +41,17 @@ class Robot:
         self.dy = v * math.sin(self.angle + omega)
 
         # mise à jour position
-        self.px += self.dx * 5
-        self.py += self.dy * 5
+        self.px += self.dx 
+        self.py += self.dy 
 
         # mise à jour angle
         self.angle += omega 
         self.angle = self.angle % (2 * math.pi)
+
+        #mise à jour des etat des roues
+        self.rot_g+=self.vitesse_g/UPDATE_TIME
+        self.rot_d+=self.vitesse_d/UPDATE_TIME
+        
         return (self.px, self.py, self.angle)
 
     def change_vitesse(self, vitesse_g, vitesse_d):
@@ -58,4 +65,19 @@ class Robot:
             self.vitesse_d = 10
         elif (self.vitesse_d < -10):
             self.vitesse_d = -10
-            
+
+    def get_rot(self):
+        return (self.rot_g,self.rot_d)
+    
+    def set_rot(self,offset,roues="both"):
+        if roues=="L":
+            self.rot_g=offset
+        if roues=="R":
+            self.rot_d=offset
+        if roues=="both":
+            self.rot_g=offset
+            self.rot_d=offset
+
+    def get_distance(self):
+        return (self.rot_d*self.ray+self.rot_g*self.ray)/2
+  
