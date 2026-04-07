@@ -50,3 +50,21 @@ class Strat_for:
         return self.curr>=self.max
         
 
+class Strat_if:
+    def __init__(self, strat1, strat2, cond, ):
+        self.strat1=strat1
+        self.strat2=strat2
+        self.cond=cond
+
+    def start(self):
+        self.strat1.start()
+        self.strat2.start()
+
+    def step(self):
+        if self.cond():
+            self.strat2.step()
+        else:
+            self.strat1.step()
+
+    def stop(self):
+        return (self.strat1.stop()or self.strat2.stop())
