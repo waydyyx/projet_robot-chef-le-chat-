@@ -31,6 +31,7 @@ class Robot:
         self.lock = RLock()
         self.rot_g=0
         self.rot_d=0
+        self.dist=100
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
@@ -79,5 +80,8 @@ class Robot:
             self.rot_d=offset
 
     def get_distance(self):
-        return (self.rot_d*self.ray+self.rot_g*self.ray)/2
+        return self.dist
+    
+    def detection(self):
+        return self.dist<50
   

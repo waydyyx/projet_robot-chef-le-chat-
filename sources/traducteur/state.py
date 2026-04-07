@@ -22,6 +22,7 @@ from modele.update_modele import update_mod
 class Robot_IRL:
     def __init__(self,robot:"Robot2IN013"):
         self.robot=robot
+        self.robot.ray=33.25
 
     def start(self):
         print("yeaah")

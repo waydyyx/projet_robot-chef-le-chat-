@@ -47,8 +47,8 @@ class Arene:
         angle =- self.robot.angle
         while ((self.robot.px + math.cos(-angle) * i + centre < self.larg and self.robot.px + math.cos(-angle) * i + centre >= 0 and self.robot.py + math.sin(-angle) * i + centre < self.haut and self.robot.py + math.sin(-angle)* i + centre >= 0) and not(self.collision_point(int(self.robot.px + math.cos(-angle) * i + centre), int(self.robot.py + math.sin(-angle) * i + centre)))):
             i += 1
-        print(f"{round(((i-25)*17/50) / 100, 2)}m")
-        return i < 50
+        # print(f"{round(((i-25)*17/50) / 100, 2)}m")
+        return i 
     
     def collision_point(self,x,y):
         for obstacle in self.obstacles:

@@ -20,7 +20,7 @@ class AvancerDroit:
             self.robot.change_vitesse(self.vitesse,self.vitesse)
     
     def stop(self):
-        return self.robot.get_distance()>self.distance
+        return (self.robot.get_rot()[0]*self.robot.ray+self.robot.get_rot()[1]*self.robot.ray)/2 > self.distance
     
 class Tourner:
     def __init__(self, robot:Robot, angle, vitesse):
