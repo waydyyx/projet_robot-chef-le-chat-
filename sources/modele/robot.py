@@ -31,7 +31,7 @@ class Robot:
         self.lock = RLock()
         self.rot_g=0
         self.rot_d=0
-        self.stylo_abaisse = True
+        self.stylo_abaisse = False
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
@@ -82,3 +82,7 @@ class Robot:
     def get_distance(self):
         return (self.rot_d*self.ray+self.rot_g*self.ray)/2
   
+
+    def dessine(self,b:bool):
+        with self.lock:
+            self.stylo_abaisse = b
