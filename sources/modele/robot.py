@@ -32,6 +32,7 @@ class Robot:
         self.rot_g=0
         self.rot_d=0
         self.dist=100
+        self.dessine=True
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2

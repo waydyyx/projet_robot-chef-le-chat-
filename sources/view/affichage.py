@@ -23,7 +23,7 @@ class Affichage :
                 img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(self.arene.robot.angle) + 90)
                 rect = img_robot_rotation.get_rect(center=((self.arene.robot.px + self.img_robot_larg / 2),(self.arene.robot.py + self.img_robot_haut / 2)))
             self.screen.blit(img_robot_rotation, rect)  
-            pygame.gfxdraw.pixel(self.screen,125,100,(0, 0, 255))
+            #pygame.gfxdraw.pixel(self.screen,int(self.arene.robot.px),int(self.arene.robot.py),(0, 0, 255))
             pygame.display.flip()
             with self.arene.stop_lock:
                 if self.arene.stop == 1:
