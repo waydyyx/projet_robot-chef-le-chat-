@@ -18,12 +18,12 @@ from modele.update_modele import update_mod
     # def __getattribute__(self, name):
     #     return getattr(self._st, name)$
 
-SEUIL_DETECTION_MM = 300  # 30 cm
+#SEUIL_DETECTION_MM = 300  # 30 cm
 
 class Robot_IRL:
     def __init__(self,robot:"Robot2IN013"):
         self.robot=robot
-        self.robot.ray=33.25
+        #self.robot.ray=33.25
 
     def start(self):
         print("yeaah")
@@ -46,25 +46,26 @@ class Robot_IRL:
         self.robot.offset_motor_encoder(port,offset)
 
 
-    def set_rot(self, offset, roues: str = "both"):
-        if roues == "L" or roues == "both":
-            current_g, _ = self.robot.get_motor_position()
-            self.robot.offset_motor_encoder(Robot2IN013.MOTOR_LEFT, current_g - offset)
-        if roues == "R" or roues == "both":
-            _, current_d = self.robot.get_motor_position()
-            self.robot.offset_motor_encoder(Robot2IN013.MOTOR_RIGHT, current_d - offset)
+    #def set_rot(self, offset, roues: str = "both"):
+    #    if roues == "L" or roues == "both":
+    #        current_g, _ = self.robot.get_motor_position()
+    #       self.robot.offset_motor_encoder(Robot2IN013.MOTOR_LEFT, current_g - offset)
+    #    if roues == "R" or roues == "both":
+    #        _, current_d = self.robot.get_motor_position()
+    #       self.robot.offset_motor_encoder(Robot2IN013.MOTOR_RIGHT, current_d - offset)
+
 
     def get_distance(self):
         return self.robot.get_distance()
     
-    def detection(self) -> bool:
-        """
-        Renvoie True si un obstacle est détecté à moins de SEUIL_DETECTION_MM.
-        Même rôle que robot.detection() dans la simulation.
-        """
-        dist = self.get_distance()
+    #def detection(self) -> bool:
+    #   """
+    #    Renvoie True si un obstacle est détecté à moins de SEUIL_DETECTION_MM.
+    #    Même rôle que robot.detection() dans la simulation.
+    #    """
+    #    dist = self.get_distance()
 
-        # 8190 c'est la valeur qui veut dire que le capteur ne detecte rien jcrois
-        if dist >= 8190:
-            return False
-        return dist < SEUIL_DETECTION_MM
+    #   # 8190 c'est la valeur qui veut dire que le capteur ne detecte rien jcrois
+    #   if dist >= 8190:
+    #        return False
+    #    return dist < SEUIL_DETECTION_MM
