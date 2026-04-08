@@ -32,6 +32,7 @@ class Robot:
         self.rot_g=0
         self.rot_d=0
         self.stylo_abaisse = False
+        self.couleur_trace = (0, 0, 255)
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
@@ -86,3 +87,6 @@ class Robot:
     def dessine(self,b:bool):
         with self.lock:
             self.stylo_abaisse = b
+
+    def change_couleur(self, couleur: tuple):
+        self.couleur_trace = couleur
