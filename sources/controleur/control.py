@@ -9,10 +9,18 @@ import pygame
 from modele.arene import Arene
 import random
 
-def instruction_robot(arene, robot):
+def instruction_robot_1(arene, robot):
     tab_strat = []
     autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10,(0,255,0)), robot.detection), Tourner(robot, math.pi / 2,5)])
-    carre = Sequence([AvancerDroit(robot, 50, 5,(255,0,0)), Tourner(robot, math.pi / 2.0966, 5)])
+    carre = Strat_for(Sequence([AvancerDroit(robot, 50, 5,(255,0,0)), Tourner(robot, math.pi / 2.0966, 5)]),4)
+    hexagone=Strat_for(Sequence([AvancerDroit(robot,200,5,"random"),Tourner(robot,1.05,3)]),6)
+    tab_strat.append(carre)
+    return tab_strat + [arene]
+
+def instruction_robot_2(arene, robot):
+    tab_strat = []
+    autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10,(0,255,0)), robot.detection), Tourner(robot, math.pi / 2,5)])
+    carre = Strat_for(Sequence([AvancerDroit(robot, 50, 5,(255,0,0)), Tourner(robot, math.pi / 2.0966, 5)]),4)
     hexagone=Strat_for(Sequence([AvancerDroit(robot,200,5,"random"),Tourner(robot,1.05,3)]),6)
     tab_strat.append(hexagone)
     return tab_strat + [arene]
@@ -36,9 +44,13 @@ class Control:
             with self.tab_strat[-1].stop_lock:
                 if self.tab_strat[-1].stop == 1:
                     break
-        with self.tab_strat[-1].stop_lock: # celle la
-            self.tab_strat[-1].stop = 1            # Si on ne veut pas que le programme sarrete il faut commenter les deux lignes
+        # with self.tab_strat[-1].stop_lock: # celle la
+        #     self.tab_strat[-1].stop = 1            # Si on ne veut pas que le programme sarrete il faut commenter les deux lignes
         print("strat fini")
+        while True:
+            with self.tab_strat[-1].stop_lock:
+                if self.tab_strat[-1].stop == 1:
+                    break
     
 # class Control:
 #     def __init__(self,arene):

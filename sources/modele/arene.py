@@ -11,41 +11,41 @@ class Obstacle:
         self.haut=haut
 
 class Arene:
-    def __init__(self, larg : int, haut : int, robot : "Robot"):
+    def __init__(self, larg : int, haut : int, robot1 : Robot, robot2:Robot):
         self.larg = larg
         self.haut = haut
-        self.robot = robot
+        self.robot = [robot1,robot2]
         # self.obstacles = []
         self.obstacles=[]#[Obstacle(int(self.larg/2)-50,int(self.haut/2)-50,100,100),Obstacle(int(self.larg/2-50),0,100,100),Obstacle(int(self.larg/2)-50,self.haut-100,100,100)] #Q1.1
         self.stop = 0
         self.stop_lock = RLock()
     
-    def collision_bord(self):
+    def collision_bord(self,robot):
         #avancer
-        if (self.robot.px < 0 or self.robot.px > self.larg - self.robot.size or self.robot.py < 0 or self.robot.py > self.haut - self.robot.size):
+        if (robot.px < 0 or robot.px > self.larg - robot.size or robot.py < 0 or robot.py > self.haut - robot.size):
             return (1)
         return (0)
     
 
-    def collision_obstacle(self):
+    def collision_obstacle(self,robot):
         """test la collision sur x
         test la collision sur y 
         si les deux soon vraie return true sinon false 
         robot ,obstacle -> bool""" 
         for obstacle in self.obstacles:
-            if(self.robot.px + self.robot.size > obstacle.px and self.robot.px < obstacle.px + obstacle.larg and self.robot.py + self.robot.size > obstacle.py and self.robot.py < obstacle.py + obstacle.haut) :
+            if(robot.px + robot.size > obstacle.px and robot.px < obstacle.px + obstacle.larg and robot.py + robot.size > obstacle.py and robot.py < obstacle.py + obstacle.haut) :
                 return True
         return False 
     
     
-    def detection_obstacle(self):
+    def detection_obstacle(self,robot):
         """
         Detecte un obstacle 
         """
-        centre = self.robot.size / 2
+        centre = robot.size / 2
         i = 0
-        angle =- self.robot.angle
-        while not(self.collision_point(int(self.robot.px + math.cos(-angle) * i + centre), int(self.robot.py + math.sin(-angle) * i + centre))):
+        angle =- robot.angle
+        while not(self.collision_point(int(robot.px + math.cos(-angle) * i + centre), int(robot.py + math.sin(-angle) * i + centre))):
             i += 1
         # print(f"{round(((i-25)*17/50) / 100, 2)}m")
         return i 

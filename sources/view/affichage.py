@@ -20,14 +20,15 @@ class Affichage :
         while (True):
             self.screen.fill((255, 255, 255))
             self.affiche_obstacle()
-            with self.arene.robot.lock:
-                img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(self.arene.robot.angle) + 90)
-                rect = img_robot_rotation.get_rect(center=((self.arene.robot.px + self.img_robot_larg / 2),(self.arene.robot.py + self.img_robot_haut / 2)))
-                if self.arene.robot.dessin:
-                    posx=int(self.arene.robot.px+self.img_robot_larg/2)
-                    posy=int(self.arene.robot.py+self.img_robot_haut/2)
-                    coordonne.append(((posx,posy),(posx+self.arene.robot.dx,posy+self.arene.robot.dy),self.arene.robot.couleur))
-            self.screen.blit(img_robot_rotation, rect)  
+            for robot in self.arene.robot:
+                with robot.lock:
+                    img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(robot.angle) + 90)
+                    rect = img_robot_rotation.get_rect(center=((robot.px + self.img_robot_larg / 2),(robot.py + self.img_robot_haut / 2)))
+                    if robot.dessin:
+                        posx=int(robot.px+self.img_robot_larg/2)
+                        posy=int(robot.py+self.img_robot_haut/2)
+                        coordonne.append(((posx,posy),(posx+robot.dx,posy+robot.dy),robot.couleur))
+                self.screen.blit(img_robot_rotation, rect)  
             #pygame.gfxdraw.pixel(self.screen,int(self.arene.robot.px),int(self.arene.robot.py),(0, 0, 255))
             for i in coordonne:
                 pygame.draw.line(self.screen,i[2],i[0],i[1])

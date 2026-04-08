@@ -6,7 +6,7 @@ import time
 UPDATE_TIME = 120
 
 class Robot:
-    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 0, px : int = 200, py : int = 200):
+    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = math.pi, px : int = 700, py : int = 350):
         """
 		:param vitesse_d: valeur compris entre (-10, 10) inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
