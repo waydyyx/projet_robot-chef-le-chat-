@@ -6,7 +6,7 @@ import time
 UPDATE_TIME = 60
 
 class Robot:
-    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 0, px : int = 50, py : int = 50):
+    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 0, px : int = 50, py : int = 700):
         """
 		:param vitesse_d: valeur compris entre (-10, 10) inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
@@ -80,4 +80,3 @@ class Robot:
 
     def get_distance(self):
         return (self.rot_d*self.ray+self.rot_g*self.ray)/2
-  
