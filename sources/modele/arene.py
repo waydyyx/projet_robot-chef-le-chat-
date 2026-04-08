@@ -15,8 +15,16 @@ class Arene:
         self.larg = larg
         self.haut = haut
         self.robot = robot
-        # self.obstacles = []
-        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
+
+        #question q1
+        taille_obs = 80
+        x_milieu = (self.larg // 2) - (taille_obs // 2)
+        y_milieu = (self.haut // 2) - (taille_obs // 2)
+        obstacle_haut = Obstacle(px=x_milieu, py=0, larg=taille_obs, haut=taille_obs)
+        obstacle_centre = Obstacle(px=x_milieu, py=y_milieu, larg=taille_obs, haut=taille_obs)
+        obstacle_bas = Obstacle(px=x_milieu, py=self.haut - taille_obs, larg=taille_obs, haut=taille_obs)
+        self.obstacles = [obstacle_haut, obstacle_centre, obstacle_bas]
+        
         self.stop = 0
         self.stop_lock = RLock()
     
