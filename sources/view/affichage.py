@@ -24,11 +24,13 @@ class Affichage :
                 img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(self.arene.robot.angle) + 90)
                 rect = img_robot_rotation.get_rect(center=((self.arene.robot.px + self.img_robot_larg / 2),(self.arene.robot.py + self.img_robot_haut / 2)))
                 if self.arene.robot.dessin:
-                    coordonne.append((int(self.arene.robot.px+self.img_robot_larg/2),int(self.arene.robot.py+self.img_robot_haut/2)))
+                    posx=int(self.arene.robot.px+self.img_robot_larg/2)
+                    posy=int(self.arene.robot.py+self.img_robot_haut/2)
+                    coordonne.append(((posx,posy),(posx+self.arene.robot.dx,posy+self.arene.robot.dy),self.arene.robot.couleur))
             self.screen.blit(img_robot_rotation, rect)  
             #pygame.gfxdraw.pixel(self.screen,int(self.arene.robot.px),int(self.arene.robot.py),(0, 0, 255))
             for i in coordonne:
-                pygame.gfxdraw.pixel(self.screen,i[0],i[1],(0,0,255))
+                pygame.draw.line(self.screen,i[2],i[0],i[1])
             pygame.display.flip()
             with self.arene.stop_lock:
                 if self.arene.stop == 1:

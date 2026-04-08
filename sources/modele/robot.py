@@ -33,6 +33,7 @@ class Robot:
         self.rot_d=0
         self.dist=100
         self.dessin=True
+        self.couleur=(0,0,255)
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
@@ -88,4 +89,7 @@ class Robot:
     
     def dessine(self,b):
         self.dessin=b
+
+    def change_couleur(self,couleur):
+        self.couleur=couleur
   
