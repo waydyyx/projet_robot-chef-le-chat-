@@ -14,14 +14,21 @@ class Affichage :
         self.img_robot = pygame.image.load("images/robot_exceptionnel.png").convert_alpha()
         self.img_robot_larg, self.img_robot_haut = self.img_robot.get_size()
         self.arene=arene
+        self.trajectoire=[]
 
     def affiche(self):
         while (True):
             self.screen.fill((255, 255, 255))
             self.affiche_obstacle()
             with self.arene.robot.lock:
+                milieu_x = self.arene.robot.px + self.img_robot_larg / 2
+                milieu_y = self.arene.robot.py + self.img_robot_haut / 2
+                if self.arene.robot.stylo_abaisse:
+                    self.trajectoire.append((milieu_x, milieu_y))
                 img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(self.arene.robot.angle) + 90)
                 rect = img_robot_rotation.get_rect(center=((self.arene.robot.px + self.img_robot_larg / 2),(self.arene.robot.py + self.img_robot_haut / 2)))
+            if len(self.trajectoire) > 1:
+                pygame.draw.aalines(self.screen, (0, 0, 255), False, self.trajectoire)
             self.screen.blit(img_robot_rotation, rect)  
             pygame.gfxdraw.pixel(self.screen,125,100,(0, 0, 255))
             pygame.display.flip()

@@ -31,6 +31,7 @@ class Robot:
         self.lock = RLock()
         self.rot_g=0
         self.rot_d=0
+        self.stylo_abaisse = True
 
     def update_pos(self):
         v = (self.vitesse_d*self.ray / UPDATE_TIME  + self.vitesse_g*self.ray / UPDATE_TIME) / 2
