@@ -2,6 +2,8 @@ from modele.arene import Arene
 from modele.robot import Robot, UPDATE_TIME
 import time
 import math
+import random
+
 class AvancerDroit:
     def __init__(self, robot:Robot, distance, vitesse,dessin=False):
         self.distance = distance
@@ -15,6 +17,9 @@ class AvancerDroit:
         self.robot.set_rot(0)
         if not self.dessin:
             self.robot.dessine(self.dessin)
+        elif self.dessin=="random":
+            self.robot.dessine(True)
+            self.robot.change_couleur((random.randint(0,255),random.randint(0,255),random.randint(0,255)))
         else:
             self.robot.dessine(True)
             self.robot.change_couleur(self.dessin)

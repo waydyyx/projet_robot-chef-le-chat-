@@ -7,13 +7,14 @@ from threading import Thread
 from modele.update_modele import update_mod
 import pygame
 from modele.arene import Arene
+import random
 
 def instruction_robot(arene, robot):
     tab_strat = []
     autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10,(0,255,0)), robot.detection), Tourner(robot, math.pi / 2,5)])
     carre = Sequence([AvancerDroit(robot, 50, 5,(255,0,0)), Tourner(robot, math.pi / 2.0966, 5)])
-    tab_strat.append(Strat_for(autonome, 1))
-    tab_strat.append(Strat_for(carre, 4))
+    hexagone=Strat_for(Sequence([AvancerDroit(robot,200,5,"random"),Tourner(robot,1.05,3)]),6)
+    tab_strat.append(hexagone)
     return tab_strat + [arene]
 
 class Control:

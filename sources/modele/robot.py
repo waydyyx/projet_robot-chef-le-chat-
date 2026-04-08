@@ -3,10 +3,10 @@ from multiprocessing import RLock
 
 import math 
 import time 
-UPDATE_TIME = 60
+UPDATE_TIME = 120
 
 class Robot:
-    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 0, px : int = 50, py : int = 50):
+    def __init__(self, vitesse_g: int, vitesse_d: int, angle : int = 0, px : int = 200, py : int = 200):
         """
 		:param vitesse_d: valeur compris entre (-10, 10) inclus pour choisir la vitesse_droite du robot
 		:type vitesse: int
