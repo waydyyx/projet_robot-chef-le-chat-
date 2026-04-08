@@ -3,15 +3,17 @@ from modele.robot import Robot, UPDATE_TIME
 import time
 import math
 class AvancerDroit:
-    def __init__(self, robot:Robot, distance, vitesse):
+    def __init__(self, robot:Robot, distance, vitesse,dessin):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot
         self.parcouru=0
+        self.dessin=dessin
 
     def start(self):
         self.parcouru=0
         self.robot.set_rot(0)
+        self.robot.dessine(self.dessin)
 
     def step(self):
         # self.parcouru += self.vitesse * self.robot.ray / UPDATE_TIME

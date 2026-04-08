@@ -23,7 +23,7 @@ class Affichage :
             with self.arene.robot.lock:
                 img_robot_rotation = pygame.transform.rotate(self.img_robot, -math.degrees(self.arene.robot.angle) + 90)
                 rect = img_robot_rotation.get_rect(center=((self.arene.robot.px + self.img_robot_larg / 2),(self.arene.robot.py + self.img_robot_haut / 2)))
-                if self.arene.robot.dessine:
+                if self.arene.robot.dessin:
                     coordonne.append((int(self.arene.robot.px+self.img_robot_larg/2),int(self.arene.robot.py+self.img_robot_haut/2)))
             self.screen.blit(img_robot_rotation, rect)  
             #pygame.gfxdraw.pixel(self.screen,int(self.arene.robot.px),int(self.arene.robot.py),(0, 0, 255))
@@ -39,7 +39,7 @@ class Affichage :
         clock = pygame.time.Clock()
         # Lecture des touches
         while not(self.arene.stop):
-            
+
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     traiter_touche(self.arene, "QUIT")
