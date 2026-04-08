@@ -16,7 +16,7 @@ class Arene:
         self.haut = haut
         self.robot = robot
         # self.obstacles = []
-        self.obstacles=[Obstacle(random.randint(0,larg),random.randint(0,haut), random.randint(15, 100), random.randint(15, 100)) for x in range (10)] 
+        self.obstacles=[Obstacle(350, 50, 100, 100), Obstacle(350,350, 100, 100), Obstacle(350, 650, 100, 100)] 
         self.stop = 0
         self.stop_lock = RLock()
     
