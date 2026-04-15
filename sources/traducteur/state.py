@@ -18,7 +18,7 @@ from modele.update_modele import update_mod
     # def __getattribute__(self, name):
     #     return getattr(self._st, name)$
 
-#SEUIL_DETECTION_MM = 300  # 30 cm
+SEUIL_DETECTION_MM = 300  # 30 cm
 
 class Robot_IRL:
     def __init__(self,robot:"Robot2IN013"):
@@ -58,14 +58,13 @@ class Robot_IRL:
     def get_distance(self):
         return self.robot.get_distance()
     
-    #def detection(self) -> bool:
-    #   """
-    #    Renvoie True si un obstacle est détecté à moins de SEUIL_DETECTION_MM.
-    #    Même rôle que robot.detection() dans la simulation.
-    #    """
-    #    dist = self.get_distance()
-
-    #   # 8190 c'est la valeur qui veut dire que le capteur ne detecte rien jcrois
-    #   if dist >= 8190:
-    #        return False
-    #    return dist < SEUIL_DETECTION_MM
+    def detection(self) -> bool:
+        """
+       Renvoie True si un obstacle est détecté à moins de SEUIL_DETECTION_MM.
+       Même rôle que robot.detection() dans la simulation.
+       """
+        dist = self.get_distance()
+        # 8190 c'est la valeur qui veut dire que le capteur ne detecte rien jcrois
+        if dist >= 8190:
+            return False
+        return dist < SEUIL_DETECTION_MM

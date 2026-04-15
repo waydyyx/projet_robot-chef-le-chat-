@@ -9,6 +9,9 @@ from modele.update_modele import update_mod
 # from traducteur.state import Simulation
 from controleur.control import Control, instruction_robot
 from traducteur.state import Robot_IRL
+from API_robot.robot2I013 import Robot2IN013
+
+
 
 
 if __name__ == "__main__":
@@ -23,7 +26,7 @@ if __name__ == "__main__":
 		assert sys.argv[2].isdigit(), "La vitesse_gauche doit etre un int."
 
 	if len(sys.argv) == 3:
-		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2])))
+		arene = Arene(800, 800, Robot_IRL(Robot2IN013()))
 	elif len(sys.argv) == 4:
 		arene = Arene(800, 800, Robot(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])))
 		assert sys.argv[3].isdigit(), "La vitesse_rot doit etre un int."
@@ -35,28 +38,26 @@ if __name__ == "__main__":
 		assert sys.argv[5].isdigit(), "La position y doit etre un int."
 	
 	
-	afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)), arene)
 	# Thread(target=update_mod,args=(arene,)).start()
 	# # Thread(target=afficheur.start, args=(arene,)).start()
 	# # afficheur.affiche(arene)
 	# Thread(target=afficheur.affiche).start()
 	# # afficheur.start()
 
-	# state=1
-
-
+	state=0
 	tableau_strategies = instruction_robot(arene, arene.robot) # on va mettre les instructions du robot dans cette fonction pour charger les instruction a l'avance dans un tableaux
 	controleur = Control(tableau_strategies)
-	controleur_irl = Robot_IRL(arene.robot)
+	# controleur_irl = Robot_IRL(arene.robot)
 	# control=Control(Test())
 	Thread(target = controleur.start).start()
 	# Thread(target=controleur.state.affiche).start()
 	# state.start()
 
-	# if state==1:
-	for event in pygame.event.get():
-		pass
-	Thread(target = update_mod, args = (arene,)).start()
-	Thread(target = afficheur.recuperer_touche).start()
-	# Thread(target=self._st.affiche).start()
-	afficheur.affiche()
+	if state==1:
+		afficheur = Affichage(pygame.display.set_mode((arene.larg, arene.haut)), arene)
+		for event in pygame.event.get():
+			pass
+		Thread(target = update_mod, args = (arene,)).start()
+		Thread(target = afficheur.recuperer_touche).start()
+		# Thread(target=self._st.affiche).start()
+		afficheur.affiche()
