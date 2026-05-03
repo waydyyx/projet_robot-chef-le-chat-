@@ -1,7 +1,6 @@
-from modele.arene import Arene
 from modele.robot import Robot, UPDATE_TIME
-import time
-import math
+from traducteur.state import Robot_IRL
+
 class AvancerDroit:
     def __init__(self, robot:Robot, distance, vitesse):
         self.distance = distance
@@ -32,10 +31,11 @@ class Tourner:
             self.vit_g = vitesse
             self.vit_d = vitesse * (-1)
         self.robot = robot
-        self.parcouru = (self.vit_g*self.robot.ray / UPDATE_TIME - self.vit_d * self.robot.ray / UPDATE_TIME) / self.robot.size
+        print("obj",abs(self.angle*(self.robot.size/2)))
+        # self.parcouru = (self.vit_g*self.robot.ray / UPDATE_TIME - self.vit_d * self.robot.ray / UPDATE_TIME) / self.robot.size
 
     def start(self):
-        self.parcouru=0
+        # self.parcouru=0
         self.robot.set_rot(0)
 
     def step(self):
@@ -48,5 +48,4 @@ class Tourner:
         # self.robot.update_pos()
 
     def stop(self):
-        # return abs(self.parcouru)>abs(self.angle)
         return abs(self.robot.get_rot()[1]*self.robot.ray)>abs(self.angle*(self.robot.size/2))

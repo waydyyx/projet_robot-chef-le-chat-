@@ -62,9 +62,9 @@ class Strat_if:
 
     def step(self):
         if self.cond():
-            self.strat2.step()
-        else:
             self.strat1.step()
+        else:
+            self.strat2.step()
 
     def stop(self):
         return (self.strat1.stop()or self.strat2.stop())

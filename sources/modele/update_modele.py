@@ -3,6 +3,7 @@ import time
 from modele.robot import UPDATE_TIME
 
 def update_mod(arene:Arene):
+    arene.robot.start=time.time()
     while True:
         if (arene.collision_bord() or arene.collision_obstacle()):
             with arene.stop_lock:
@@ -15,4 +16,3 @@ def update_mod(arene:Arene):
         with arene.stop_lock:
             if arene.stop == 1:
                 return
-        time.sleep(1 / UPDATE_TIME)

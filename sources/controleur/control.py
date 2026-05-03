@@ -10,9 +10,9 @@ from modele.arene import Arene
 
 def instruction_robot(arene, robot):
     tab_strat = []
-    autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10), robot.detection), Tourner(robot, math.pi / 2,5)])
-    carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot, math.pi / 2.0966, 5)])
-    tab_strat.append(Strat_for(autonome, 1))
+    #autonome = Sequence([Strat_while(AvancerDroit(robot,10, 10), robot.detection), Tourner(robot, math.pi / 2,5)])
+    carre = Sequence([AvancerDroit(robot, 50, 5), Tourner(robot, math.pi / 2, 2)])
+    # tab_strat.append(Strat_for(autonome, 1))
     tab_strat.append(Strat_for(carre, 4))
     return tab_strat + [arene]
 
@@ -38,7 +38,7 @@ class Control:
         with self.tab_strat[-1].stop_lock: # celle la
             self.tab_strat[-1].stop = 1            # Si on ne veut pas que le programme sarrete il faut commenter les deux lignes
         print("strat fini")
-    
+    ""
 # class Control:
 #     def __init__(self,arene):
 #         self.arene=arene
