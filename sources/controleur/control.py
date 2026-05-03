@@ -38,25 +38,3 @@ class Control:
         with self.tab_strat[-1].stop_lock: # celle la
             self.tab_strat[-1].stop = 1            # Si on ne veut pas que le programme sarrete il faut commenter les deux lignes
         print("strat fini")
-    ""
-# class Control:
-#     def __init__(self,arene):
-#         self.arene=arene
-#         self.robot=arene.robot
-
-#     def exec_strat(self,strat):
-#         while not strat.stop():
-#             with self.arene.stop_lock:
-#                 if self.arene.stop == 1:
-#                     return
-#             strat.step()
-#             time.sleep(1 / (UPDATE_TIME))
-
-#     def start(self):
-        
-        
-#         # strat=Sequence([AvancerDroit(robot,10,5),Tourner(robot,math.pi,5)])
-#         # self.exec_strat(strat)
-#         print("fini")
-#         with self.arene.stop_lock:
-#             self.arene.stop = 1
